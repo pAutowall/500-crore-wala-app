@@ -1,3 +1,37 @@
+<?php      
+  $error = "";
+    require('connection.php');
+    session_start();
+    // Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  header("location: dashboard.html");
+  exit;
+}
+    // When form submitted, check and create user session.
+    if (isset($_POST['email'])) {
+        $email = stripslashes($_REQUEST['email']);    // removes backslashes
+        $email = mysqli_real_escape_string($con, $email);
+        $password = stripslashes($_REQUEST['password']);
+        $password = mysqli_real_escape_string($con, $password);
+        // Check user is exist in the database
+        $query    = "SELECT * FROM `users` WHERE email='$email'
+                     AND password='$password'";
+        $result = mysqli_query($con, $query) or die(mysql_error());
+        $rows = mysqli_num_rows($result);
+        if ($rows == 1) {
+            $_SESSION['email'] = $email;
+            $_SESSION["loggedin"] = true;
+            // Redirect to user dashboard page
+            header("Location: dashboard.html");
+        } else {
+          
+          $error = "Invalid Username or Password";
+    
+        }
+    }
+?>  
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,13 +72,7 @@
 								    <div class="invalid-feedback">
 								    	Password is required
 							    	</div>
-									<div>
-										<label >Select User Type:</label>
-									  </div>
-									  <select class="form-control"name="role" aria-label="Default select example">
-										  <option selected value="NGO">NGO</option>
-										  <option value="doner">Restaurants</option>
-									  </select>
+								
 								</div>
 
 								<div class="form-group">
@@ -55,12 +83,12 @@
 								</div>
 
 								<div class="form-group m-0">
-									<button onclick="location.href = 'dashboard.html';" type="submit" class="btn btn-primary btn-block">
+									<button type="submit" class="btn btn-primary btn-block">
 										Login
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Don't have an account? <a href="register.html">Create One</a>
+									Don't have an account? <a href="register.php">Create One</a>
 								</div>
 							</form>
 						</div>

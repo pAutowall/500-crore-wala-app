@@ -1,10 +1,59 @@
+<?php
+$error ="";
+session_start();
+
+    if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
+        
+        $name = $_POST['name'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+        $host = "localhost";
+        $dbUsername = "root";
+        $dbPassword = "";
+        $dbName = "loginsystem";
+        $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+        if ($conn->connect_error) {
+            die('Could not connect to the database.');
+        }
+        else {
+            $Select = "SELECT email FROM users WHERE email = ? LIMIT 1";
+            $Insert = "INSERT INTO users (name, password, email) values(?, ?, ?)";
+			
+            $stmt = $conn->prepare($Select);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->bind_result($resultEmail);
+            $stmt->store_result();
+            $stmt->fetch();
+            $rnum = $stmt->num_rows;
+            if ($rnum == 0) {
+                $stmt->close();
+                $stmt = $conn->prepare($Insert);
+                $stmt->bind_param('sss',$name, $password, $email);
+                if ($stmt->execute()) {
+                    header("Location: login.html");
+                }
+                else {
+                    echo $stmt->error;
+                }
+            }
+            else {
+                $error =  "Someone already registers using this email.";
+            }
+            $stmt->close();
+            $conn->close();
+        }
+    }
+    ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<title> Login Page</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/my-login.css">
 </head>
@@ -19,7 +68,7 @@
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Register</h4>
-							<form method="POST" class="my-login-validation" novalidate="">
+							<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="my-login-validation" novalidate="">
 								<div class="form-group">
 									<label for="name">Name</label>
 									<input id="name" type="text" class="form-control" name="name" required autofocus>
@@ -60,7 +109,7 @@
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Already have an account? <a href="login.html">Login</a>
+									Already have an account? <a href="login.php">Login</a>
 								</div>
 							</form>
 						</div>
