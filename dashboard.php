@@ -1,5 +1,4 @@
 <?php
-//include auth_session.php file on all user panel pages
 include("auth_session.php");
 ?>
 <!DOCTYPE html>
@@ -9,6 +8,7 @@ include("auth_session.php");
 	<meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/my-login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   </head>
   <body>
@@ -18,7 +18,7 @@ include("auth_session.php");
         <h3>Food4<span>Thought</span></h3>
       </div>
       <div class="right_area">
-        <a href="#" class="logout_btn">Logout</a>
+        <a href="logout.php" class="logout_btn">Logout</a>
       </div>
     </header>
     <!--header area end-->
@@ -30,7 +30,7 @@ include("auth_session.php");
         <h4>Demo User</h4>
       </center>
       <a href="#"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
-      <a href="#"><i class="fas fa-cogs"></i><span>Create Request</span></a>
+      <a href="#popup1"><i class="fas fa-cogs"></i><span>Create Request</span></a>
       <a href="#"><i class="fas fa-table"></i><span>ABC</span></a>
       <a href="#"><i class="fas fa-th"></i><span>ABC</span></a>
       <a href="#"><i class="fas fa-info-circle"></i><span>ABC</span></a>
@@ -41,10 +41,65 @@ include("auth_session.php");
 
     <!-- <div class="content"></div> -->
 
-    <div class="container-1">
+    
 
+    <div class="container-1">
+        <div class="courses-container">
+          <div class="course">
+            <div class="course-preview">
+              <img src="img/map.jpg" height="200" width="200">
+            </div>
+            <div class="course-info">
+              <div class="progress-container">
+                <div class="progress"></div>
+              </div>
+              <h6>Katraj, Pune</h6>
+              <h2>Food Packets for 50 People</h2>
+              <button class="btn">More Info</button>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <h2>Donation Form</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+          <form >
+            <div class="form-group">
+              <label for="name">Food type</label>
+              <input id="name" type="text">
+              
+            </div>
+
+            <div class="form-group">
+              <label for="email">Quantity</label>
+              <input id="email" type="email">
+
+            </div>
+
+            <div class="form-group">
+              <label for="password">Location</label>
+              <input id="password" type="password" name="password">
+            </div>
+
+
+
+            <div class="form-group m-0">
+              <button type="submit" class="btn btn-primary btn-block">
+                Submit
+              </button>
+            </div>
+            </form>
+        </div>
+      </div>
     </div>
     <div class="container-2">
+
       </div>
 
 
