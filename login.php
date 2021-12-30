@@ -22,7 +22,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
             $_SESSION['email'] = $email;
             $_SESSION["loggedin"] = true;
             // Redirect to user dashboard page
-            header("Location: dashboard.html");
+            header("Location: dashboard.php");
         } else {
           
           $error = "Invalid Username or Password";

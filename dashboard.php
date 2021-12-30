@@ -1,5 +1,5 @@
 <?php
-include("auth_session.php");
+// include("auth_session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -41,7 +41,7 @@ include("auth_session.php");
 
     <!-- <div class="content"></div> -->
 
-    
+
 
     <div class="container-1">
         <div class="courses-container">
@@ -56,11 +56,42 @@ include("auth_session.php");
               <h6>Katraj, Pune</h6>
               <h2>Food Packets for 50 People</h2>
               <button class="btn">More Info</button>
+              
+            </div>
+          </div>
+          <div class="courses-container">
+          <div class="course">
+            <div class="course-preview">
+              <img src="img/map.jpg" height="200" width="200">
+            </div>
+            <div class="course-info">
+              <div class="progress-container">
+                <div class="progress"></div>
+              </div>
+              <h6>Dhankawadi, Pune</h6>
+              <h2>250 Meals Needed @ Dhankawadi </h2>
+              <button class="btn">More Info</button>
+              
+            </div>
+          </div>
+          <div class="courses-container">
+          <div class="course">
+            <div class="course-preview">
+              <img src="img/map.jpg" height="200" width="200">
+            </div>
+            <div class="course-info">
+              <div class="progress-container">
+                <div class="progress"></div>
+              </div>
+              <h6>Kothrud, Pune</h6>
+              <h2>Meal for 200</h2>
+              <button class="btn">More Info</button>
+              
             </div>
           </div>
         </div>
-        
-        
+
+
       </div>
     </div>
 
@@ -73,7 +104,7 @@ include("auth_session.php");
             <div class="form-group">
               <label for="name">Food type</label>
               <input id="name" type="text">
-              
+
             </div>
 
             <div class="form-group">

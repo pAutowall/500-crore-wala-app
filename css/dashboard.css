@@ -100,7 +100,6 @@ header{
 
 
 .container-1{
-  
   margin-top: 100px;
   background-color: rgba(51, 51, 51, 0.24);
   margin-right: 3%;
@@ -108,6 +107,8 @@ header{
   border: 1px solid black;
   width: 75%;
   height: 80%;
+  overflow: hidden;
+  overflow-y:scroll;
 }
 
 .container-1 .containerlevel2{
