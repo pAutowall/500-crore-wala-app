@@ -1,6 +1,30 @@
 <?php
-// include("auth_session.php");
-?>
+include("connection.php");
+if(isset($_POST['foodtype']) && isset($_POST['location']))
+{
+    $foodtype = $_POST["foodtype"];
+    $location = $_POST["location"];
+    $host = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "loginsystem";
+    $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+    if ($conn->connect_error) {
+        die('Could not connect to the database.');
+    }
+    
+    $sql = "INSERT INTO food (foodtype, location) VALUES ( '$foodtype', '$location')";   // Use you own column name from login table
+    if (!mysqli_query($conn, $sql)) {
+        echo "Error: " . mysqli_error($conn);
+    }
+    mysqli_close($conn);
+}
+
+$query="select * from food"; 
+$result=mysqli_query($con,$query); 
+
+
+      ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -42,35 +66,45 @@
         <!--sidebar end-->
     </section>
 
-    <!-- <div class="content"></div> -->
+   
 
 
 
     <div id="box1" class="container-1">
-        
+    <?php while($rows=mysqli_fetch_assoc($result)){?>
+         <div class="courses-container">
+          <div class="course">
+            <div class="course-preview">
+              <img src="img/map.jpg" height="200" width="200">
+            </div>
+            <div class="course-info">
+              <div class="progress-container">
+                <div class="progress"></div>
+              </div>
+              <h6><?php echo $rows['location']; ?></h6>
+              <h2><?php echo $rows['foodtype']; ?></h2>
+              <button class="btn">More Info</button>
+
+            </div>
+           
         </div>
+        <?php } ?>
 
         <div id="popup1" class="overlay">
             <div class="popup">
                 <h2>Donation Form</h2>
                 <a class="close" href="#">&times;</a>
                 <div class="content">
-                    <form>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                         <div class="form-group">
-                            <label for="name">Food type</label>
-                            <input id="name" type="text">
+                            <label for="foodtype">Food type</label>
+                            <input id="foodtype" type="foodtype" name="foodtype">
 
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Quantity</label>
-                            <input id="email" type="email">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Location</label>
-                            <input id="password" type="password" name="password">
+                            <label for="location">Location</label>
+                            <input id="location" type="location" name="location">
                         </div>
 
 
@@ -84,6 +118,7 @@
                 </div>
             </div>
         </div>
+    
         <div class="container-2">
 
         </div>
