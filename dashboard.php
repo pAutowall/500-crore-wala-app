@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("connection.php");
 if(isset($_POST['foodtype']) && isset($_POST['location']))
 {
@@ -53,15 +54,19 @@ $result=mysqli_query($con,$query);
     <section>
         <div class="sidebar">
             <center>
-                <img src="img/1.png" class="profile_image" alt="">
-                <h4>Demo User</h4>
+                <img src="img/FPvkGPgXsAogrsG.jpg" class="profile_image" alt="">
+                <h4>
+                    Demo User
+				</h4>
+                
             </center>
+            <a href="#"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
             <a href="#"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
             <a href="#popup1"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="javascript:gclick()"><i class="fas fa-table"></i><span>Create Card</span></a>
-            <a href="#"><i class="fas fa-th"></i><span>ABC</span></a>
-            <a href="#"><i class="fas fa-info-circle"></i><span>ABC</span></a>
-            <a href="#"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+            <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
+            <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
+            
         </div>
         <!--sidebar end-->
     </section>
