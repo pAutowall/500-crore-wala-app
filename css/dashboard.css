@@ -10,6 +10,7 @@ header {
     padding: 20px;
     width: 100%;
     height: 30px;
+    z-index: 2;
 }
 
 .left_area h3 {
@@ -42,6 +43,8 @@ header {
 .logout_btn:hover {
     background: #0B87A6;
 }
+
+.flex-container {}
 
 .sidebar {
     background: #2f323a;
@@ -96,19 +99,16 @@ header {
   transition: 0.5s;
 } */
 
-
-
-
 .container-1 {
     margin-top: 100px;
-    background-color: rgba(51, 51, 51, 0.24);
+    /* background-color: rgba(51, 51, 51, 0.24); */
     margin-right: 3%;
     float: right;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 75%;
     height: 80%;
-    overflow: hidden;
-    overflow-y: scroll;
+    /* overflow: hidden;
+    overflow-y: scroll; */
 }
 
 .container-1 .containerlevel2 {
@@ -118,17 +118,12 @@ header {
 
 .container-1 .containerlevel2 span {}
 
+
 /* .container-2{
   margin-left: 250px;
   height: 100vh;
   background-color:#2f323a; 
 } */
-
-
-
-
-
-
 
 .overlay {
     align-content: center;
@@ -147,10 +142,11 @@ header {
     visibility: visible;
     opacity: 1;
 }
-.form-group{
+
+.form-group {
     padding: 5px;
-    
 }
+
 .popup {
     object-fit: cover;
     margin-top: 10%;
@@ -192,16 +188,14 @@ header {
 }
 
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-
 .course {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     display: flex;
     max-width: 100%;
-    margin: 20px;
+    margin: 25px;
     overflow: hidden;
-
 }
 
 .course h6 {
@@ -219,7 +213,6 @@ header {
 .course-preview {
     background-color: #ffffff;
     color: #fff;
-
     max-width: 250px;
 }
 
@@ -252,12 +245,10 @@ header {
     letter-spacing: 1px;
 }
 
-
 @media screen and (max-width: 700px) {
     .box {
         width: 70%;
     }
-
     .popup {
         width: 70%;
     }

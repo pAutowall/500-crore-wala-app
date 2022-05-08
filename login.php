@@ -18,8 +18,16 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                      AND password='$password'";
         $result = mysqli_query($con, $query) or die(mysql_error());
         $rows = mysqli_num_rows($result);
+        $resultSet = array();
+        while($r = mysqli_fetch_assoc($result)) {
+            $resultSet[] = $r;
+        }
         if ($rows == 1) {
-            $_SESSION['email'] = $email;
+            unset($resultSet[0]['password']);
+            $_SESSION['userDetails'] = $resultSet[0];
+            $_SESSION['name'] = $resultSet[0]['name'];
+            $_SESSION['id'] = $resultSet[0]['id'];
+    
             $_SESSION["loggedin"] = true;
             // Redirect to user dashboard page
             header("Location: dashboard.php");

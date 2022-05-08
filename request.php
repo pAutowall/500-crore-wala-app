@@ -2,9 +2,6 @@
 session_start();
 include("connection.php");
 
-$query="select * from food"; 
-$result=mysqli_query($con,$query); 
-
 
 
 
@@ -23,20 +20,18 @@ $result=mysqli_query($con,$query);
 </head>
 
 <body>
-    <div class="gridcontainer">
-        <!--header area start-->
-        <header class="mainhead">
-            <div class="left_area">
-                <h3>Food4<span>Thought</span></h3>
-            </div>
-            <div class="right_area">
-                <a href="logout.php" class="logout_btn">Logout</a>
-            </div>
-        </header>
-        <!--header area end-->
-
-
-        <!--sidebar start-->
+    <!--header area start-->
+    <header>
+        <div class="left_area">
+            <h3>Food4<span>Thought</span></h3>
+        </div>
+        <div class="right_area">
+            <a href="logout.php" class="logout_btn">Logout</a>
+        </div>
+    </header>
+    <!--header area end-->
+    <!--sidebar start-->
+    <section>
         <div class="sidebar">
             <center>
                 <img src="img/FPvkGPgXsAogrsG.jpg" class="profile_image" alt="">
@@ -44,45 +39,27 @@ $result=mysqli_query($con,$query);
                 <?php 
 				  echo "Welcome, ". $_SESSION['name']."!";
                   ?>
-                </h4>
-
+				</h4>
+                
             </center>
-            <a href="profile.php"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
+            <a href="#"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
             <a href="#"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
-            <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
+            <a href="#popup1"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="javascript:gclick()"><i class="fas fa-table"></i><span>Create Card</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
             <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
-
+            
         </div>
         <!--sidebar end-->
-        <div id="box1" class="container-1">
-            <?php while($rows=mysqli_fetch_assoc($result)){?>
-            <div class="courses-container">
-                <div class="course">
-                    <div class="course-preview">
-                        <img src="img/map.jpg" height="200" width="200">
-                    </div>
-                    <div class="course-info">
-                        <div class="progress-container">
-                            <div class="progress"></div>
-                        </div>
-                        <h6><?php echo $rows['location']; ?></h6>
-                        <h2><?php echo $rows['foodtype']; ?></h2>
-                        <button class="btn">More Info</button>
+    </section>
 
-                    </div>
+   
 
 
-                </div>
-            </div>
 
-
-            <?php } ?>
-
-            <div id="popup1" class="overlay">
-                <div class="popup">
-                    <h2>Donation Form</h2>
+    <div id="box1" class="container-1">
+    
+    <h2>Donation Form</h2>
                     <a class="close" href="#">&times;</a>
                     <div class="content">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
@@ -106,23 +83,8 @@ $result=mysqli_query($con,$query);
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-
-            <div class="container-2">
-
-            </div>
-        </div>
-
-
-
-
-        <div id="fuxo">
-            <?php echo json_encode($_SESSION['userDetails'])?>
 
         </div>
-
-
 
 
 </body>
