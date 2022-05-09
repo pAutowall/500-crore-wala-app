@@ -60,7 +60,7 @@ $result=mysqli_query($con,$query);
             <?php while($rows=mysqli_fetch_assoc($result)){?>
             <div class="courses-container">
                 <div class="course">
-                    <div class="course-preview">
+                    <div class="course-preview" data="<?php echo $rows['location']; ?>">
                         <img src="img/map.jpg" height="200" width="200">
                     </div>
                     <div class="course-info">
@@ -129,6 +129,7 @@ $result=mysqli_query($con,$query);
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/dashboardPage.js"></script>
     <script src="js/cards.js"></script>
 </body>
 
