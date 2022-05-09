@@ -1,12 +1,13 @@
 <?php
     session_start();
     include("connection.php");
-    $requestType = $_POST['request'];
-    $location = $_POST['location'];
-    $expiry = $_POST['expiry'];
-    $foodDescription = $_POST['foodDescription'];
-
-    $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."');");
+    if(isset($_POST['request'])) {
+        $requestType = $_POST['request'];
+        $location = $_POST['location'];
+        $expiry = $_POST['expiry'];
+        $foodDescription = $_POST['foodDescription'];
+        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."');");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -83,7 +84,7 @@
                                 <input id="expiry" type="text" name="expiry">
                             </div>
                             <div class="form-group">
-                                <label for="foodDescription">Food Description</label>
+                                <label for="foodDescription">Food Description/ Requirement</label>
                                 <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
                             </div>
                             <div class="form-group m-0">
