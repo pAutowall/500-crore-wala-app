@@ -69,8 +69,11 @@ $result=mysqli_query($con,$query);
                         </div>
                         <h6><?php echo $rows['location']; ?></h6>
                         <h2><?php echo $rows['foodDetails']; ?></h2>
-                        <button class="btn">More Info</button>
-
+                        <?php if($rows['donorId']==$_SESSION['id']) { ?>
+                                <button class="btn" id="editButton">Edit</button>
+                        <?php } else { ?>
+                                <button class="btn" id="applyButton">Apply</button>
+                        <?php } ?>
                     </div>
 
 

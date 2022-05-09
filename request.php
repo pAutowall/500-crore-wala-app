@@ -4,7 +4,7 @@
     if(isset($_POST['request'])) {
         $requestType = $_POST['request'];
         $location = $_POST['location'];
-        $expiry = $_POST['expiry'];
+        $expiry = strtotime($_POST['expiry']);
         $foodDescription = $_POST['foodDescription'];
         $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."');");
     }
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/my-login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"/>
 </head>
 
 <body>
@@ -97,7 +98,12 @@
 
         </div>
 
-    <script src="js/cards.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cards.js"></script>
+    <script src="js/requestPage.js"></script>
+    
 </body>
 
 </html>
