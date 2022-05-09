@@ -68,7 +68,7 @@ $result=mysqli_query($con,$query);
                             <div class="progress"></div>
                         </div>
                         <h6><?php echo $rows['location']; ?></h6>
-                        <h2><?php echo $rows['foodtype']; ?></h2>
+                        <h2><?php echo $rows['foodDetails']; ?></h2>
                         <button class="btn">More Info</button>
 
                     </div>
