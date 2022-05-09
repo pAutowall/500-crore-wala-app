@@ -1,6 +1,11 @@
 <?php
     session_start();
     include("connection.php");
+    $id=$_SESSION['id'];
+    $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+   $fetch = mysqli_fetch_assoc($select);
+}
     if(isset($_POST['request'])) {
         $requestType = $_POST['request'];
         $location = $_POST['location'];
@@ -38,7 +43,15 @@
     <section>
         <div class="sidebar">
             <center>
-                <img src="img/FPvkGPgXsAogrsG.jpg" class="profile_image" alt="">
+            <?php
+         if($fetch['pfp'] == ''){
+            echo '<img src="images/default-avatar.png" class="profile_image" alt="">
+            ';
+         }else{
+            echo '<img src="uploaded_img/'.$fetch['pfp'].'" class="profile_image" alt="">
+            ';
+         }
+         ?>
                 <h4>
                 <?php 
 				  echo "Welcome, ". $_SESSION['name']."!";
@@ -49,7 +62,7 @@
             <a href="profile.php"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
             <a href="dashboard.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
-            <a href="javascript:gclick()"><i class="fas fa-table"></i><span>Create Card</span></a>
+            <a href="#"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
             <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
             
