@@ -2,7 +2,7 @@
 session_start();
 include("connection.php");
 
-$query="select * from food"; 
+$query="select * from food ORDER BY foodId DESC"; 
 $result=mysqli_query($con,$query); 
 
 
