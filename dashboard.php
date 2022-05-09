@@ -1,13 +1,9 @@
 <?php
 session_start();
 include("connection.php");
-<<<<<<< Updated upstream
-
 $query="select * from food ORDER BY foodId DESC"; 
-=======
 $id=$_SESSION['id'];
 $query="select * from food"; 
->>>>>>> Stashed changes
 $result=mysqli_query($con,$query); 
 $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
 if(mysqli_num_rows($select) > 0){
