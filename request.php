@@ -42,9 +42,9 @@ include("connection.php");
 				</h4>
                 
             </center>
-            <a href="#"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
-            <a href="#"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
-            <a href="#popup1"><i class="fas fa-cogs"></i><span>Create Request</span></a>
+            <a href="profile.php"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
+            <a href="dashboard.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+            <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="javascript:gclick()"><i class="fas fa-table"></i><span>Create Card</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
             <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>

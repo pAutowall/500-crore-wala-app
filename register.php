@@ -31,7 +31,7 @@ session_start();
                 $stmt = $conn->prepare($Insert);
                 $stmt->bind_param('sss',$name, $password, $email);
                 if ($stmt->execute()) {
-                    header("Location: login.html");
+                    header("Location: login.php");
                 }
                 else {
                     echo $stmt->error;
