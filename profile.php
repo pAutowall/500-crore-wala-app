@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
     <!--header area start-->
     <header>
         <div class="left_area">
-            <h3>Food4<span>Thought</span></h3>
+            <h3 class="logo">Food4<span>Thought</span></h3>
         </div>
         <div class="right_area">
             <a href="logout.php" class="logout_btn">Logout</a>

@@ -1,11 +1,13 @@
 <?php
-session_start();
-include("connection.php");
+    session_start();
+    include("connection.php");
+    $requestType = $_POST['request'];
+    $location = $_POST['location'];
+    $expiry = $_POST['expiry'];
+    $foodDescription = $_POST['foodDescription'];
 
-
-
-
-      ?>
+    $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."');");
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -16,14 +18,14 @@ include("connection.php");
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/my-login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <script src="js/cards.js" defer></script>
+    <link rel="stylesheet" href="css/utils.css">
 </head>
 
 <body>
     <!--header area start-->
     <header>
         <div class="left_area">
-            <h3>Food4<span>Thought</span></h3>
+            <h3 class="logo">Food4<span>Thought</span></h3>
         </div>
         <div class="right_area">
             <a href="logout.php" class="logout_btn">Logout</a>
@@ -60,22 +62,30 @@ include("connection.php");
     <div id="box1" class="container-1">
     
     <h2>Donation Form</h2>
-                    <a class="close" href="#">&times;</a>
+                    <!-- <a class="close" href="#">&times;</a> -->
                     <div class="content">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <div class="form-group">
-                                <label for="foodtype">Food type</label>
-                                <input id="foodtype" type="foodtype" name="foodtype">
+                                <label for="requestType">Request Type</label>
+
+                                <select name="request" id="requestType">
+                                    <option value="donor">Donor</option>
+                                    <option value="reciever">Reciever</option>
+                                </select>
 
                             </div>
-
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <input id="location" type="location" name="location">
+                                <input id="location" type="text" name="location">
                             </div>
-
-
-
+                            <div class="form-group">
+                                <label for="expiry">Expires After</label>
+                                <input id="expiry" type="text" name="expiry">
+                            </div>
+                            <div class="form-group">
+                                <label for="foodDescription">Food Description</label>
+                                <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
+                            </div>
                             <div class="form-group m-0">
                                 <button type="submit" class="btn btn-primary btn-block">
                                     Submit
@@ -86,7 +96,7 @@ include("connection.php");
 
         </div>
 
-
+    <script src="js/cards.js" defer></script>
 </body>
 
 </html>

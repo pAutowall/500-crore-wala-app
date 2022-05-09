@@ -19,7 +19,7 @@ $result=mysqli_query($con,$query);
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/my-login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <script src="js/cards.js" defer></script>
+    <link rel="stylesheet" href="css/utils.css">
 </head>
 
 <body>
@@ -27,7 +27,7 @@ $result=mysqli_query($con,$query);
         <!--header area start-->
         <header class="mainhead">
             <div class="left_area">
-                <h3>Food4<span>Thought</span></h3>
+                <h3 class="logo">Food4<span>Thought</span></h3>
             </div>
             <div class="right_area">
                 <a href="logout.php" class="logout_btn">Logout</a>
@@ -124,7 +124,9 @@ $result=mysqli_query($con,$query);
 
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cards.js"></script>
 </body>
 
 </html>
