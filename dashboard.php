@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("connection.php");
+<<<<<<< Updated upstream
 
 $query="select * from food ORDER BY foodId DESC"; 
 =======
