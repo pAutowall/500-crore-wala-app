@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
 :root {
     --blue: #3498db;
     --dark-blue: #2980b9;
@@ -6,7 +6,7 @@
     --dark-red: #c0392b;
     --black: #333;
     --white: #fff;
-    --box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, .1);
+    --box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, 0.1);
 }
 
 .delete-btn {
@@ -35,7 +35,7 @@
     border-radius: 5px;
     padding: 10px;
     text-align: center;
-    background-color: var(--red);
+    background-color: green;
     color: var(--white);
     font-size: 20px;
 }
@@ -96,7 +96,7 @@
     margin-top: 10px;
 }
 
-@media (max-width:650px) {
+@media (max-width: 650px) {
     .update-profile form .flex {
         flex-wrap: wrap;
         gap: 0;

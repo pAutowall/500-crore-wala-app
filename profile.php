@@ -28,7 +28,7 @@ if(isset($_POST['update_profile'])){
         $message[] = 'confirm password not matched!';
      }else{
         mysqli_query($con, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$id'") or die('query failed');
-        $message[] = 'password updated successfully!';
+        $message[] = 'Password updated successfully!';
      }
   }
 
@@ -45,7 +45,7 @@ if(isset($_POST['update_profile'])){
         if($image_update_query){
            move_uploaded_file($update_image_tmp_name, $update_image_folder);
         }
-        $message[] = 'image updated succssfully!';
+        $message[] = 'Image updated succssfully!';
      }
   }
   

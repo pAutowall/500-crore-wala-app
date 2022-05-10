@@ -1,9 +1,9 @@
 <?php
 session_start();
 include("connection.php");
-$query="select * from food ORDER BY foodId DESC"; 
+$myrequest = $_GET['myrequest']??null;
+$query = $myrequest ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : "select * from food ORDER BY foodId DESC"; 
 $id=$_SESSION['id'];
-$query="select * from food"; 
 $result=mysqli_query($con,$query); 
 $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
 if(mysqli_num_rows($select) > 0){
@@ -24,6 +24,7 @@ if(mysqli_num_rows($select) > 0){
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/my-login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/utils.css">
 </head>
 
@@ -63,7 +64,7 @@ if(mysqli_num_rows($select) > 0){
             <a href="profile.php"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
             <a href="dashboard.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
-            <a href="#"><i class="fas fa-table"></i><span>My Requests</span></a>
+            <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
             <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
 
@@ -77,9 +78,9 @@ if(mysqli_num_rows($select) > 0){
                         <img src="img/map.jpg" height="200" width="200">
                     </div>
                     <div class="course-info">
-                        <div class="progress-container">
+                        <!-- <div class="progress-container">
                             <div class="progress"></div>
-                        </div>
+                        </div> -->
                         <h6><?php echo $rows['location']; ?></h6>
                         <h2><?php echo $rows['foodDetails']; ?></h2>
                         <?php if($rows['donorId']==$_SESSION['id']) { ?>
@@ -130,9 +131,42 @@ if(mysqli_num_rows($select) > 0){
             </div>
         </div>
 
-
+    
+    
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applyModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Message:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="js/utils.js"></script>
     <script src="js/dashboardPage.js"></script>
     <script src="js/cards.js"></script>
