@@ -27,7 +27,7 @@ if(isset($_POST['update_profile'])){
      }elseif($new_pass != $confirm_pass){
         $message[] = 'confirm password not matched!';
      }else{
-        mysqli_query($con, "UPDATE `user_form` SET password = '$confirm_pass' WHERE id = '$id'") or die('query failed');
+        mysqli_query($con, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$id'") or die('query failed');
         $message[] = 'password updated successfully!';
      }
   }
