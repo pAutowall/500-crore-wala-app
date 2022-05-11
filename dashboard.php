@@ -84,9 +84,9 @@ if(mysqli_num_rows($select) > 0){
                         <h6><?php echo $rows['location']; ?></h6>
                         <h2><?php echo $rows['foodDetails']; ?></h2>
                         <?php if($rows['donorId']==$_SESSION['id']) { ?>
-                                <button class="btn" id="editButton">Edit</button>
+                                <button class="btn btn-apply-edit" id="editButton" >Edit</button>
                         <?php } else { ?>
-                                <button class="btn" id="applyButton">Apply</button>
+                                <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal" data-target="#applyModal" data-ajax-data="<?php echo $_SESSION['id'] ?>" >Apply</button>
                         <?php } ?>
                     </div>
 
