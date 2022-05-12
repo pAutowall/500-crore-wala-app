@@ -86,7 +86,7 @@ if(mysqli_num_rows($select) > 0){
                         <h6><?php echo $rows['location']; ?></h6>
                         <h2><?php echo $rows['foodDetails']; ?></h2>
                         <?php if($rows['donorId']==$_SESSION['id']) { ?>
-                                <button class="btn btn-apply-edit" id="editButton" >Edit</button>
+                                <button class="btn btn-apply-edit" id="editButton" data-toggle="modal" data-target="#editModal">Edit</button>
                         <?php } else { ?>
                                 <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
                                 <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal" data-target="#applyModal" data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" >Apply</button>
@@ -100,38 +100,7 @@ if(mysqli_num_rows($select) > 0){
 
             <?php } ?>
 
-            <div id="popup1" class="overlay">
-                <div class="popup">
-                    <h2>Donation Form</h2>
-                    <a class="close" href="#">&times;</a>
-                    <div class="content">
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <div class="form-group">
-                                <label for="foodtype">Food type</label>
-                                <input id="foodtype" type="foodtype" name="foodtype">
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="location">Location</label>
-                                <input id="location" type="location" name="location">
-                            </div>
-
-
-
-                            <div class="form-group m-0">
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container-2">
-
-            </div>
+                
         </div>
 
     
@@ -161,6 +130,45 @@ if(mysqli_num_rows($select) > 0){
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="applyModalSubmit" type="button" class="btn btn-primary">Send message</button>
             </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="form-group">
+                    <label for="requestType">Request Type</label>
+
+                    <select name="request" id="requestType">
+                        <option value="donor">Donor</option>
+                        <option value="reciever">Reciever</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input id="location" type="text" name="location">
+                </div>
+                <div class="form-group">
+                    <label for="expiry">Expires After</label>
+                    <input id="expiry" type="text" name="expiry">
+                </div>
+                <div class="form-group">
+                    <label for="foodDescription">Food Description/ Requirement</label>
+                    <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
+                </div>
+                <div class="form-group m-0">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Submit
+                    </button>
+                </div>
             </div>
         </div>
     </div>
