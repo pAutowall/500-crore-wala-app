@@ -44,9 +44,6 @@ header {
     background: #0b87a6;
 }
 
-.flex-container {
-}
-
 .sidebar {
     background: #2f323a;
     margin-top: 70px;
@@ -92,6 +89,7 @@ header {
     padding-right: 10px;
 }
 
+
 /* .content{
   margin-left: 250px;
   background: url(background.png) no-repeat;
@@ -118,8 +116,6 @@ header {
     border: 1px solid black;
 }
 
-.container-1 .containerlevel2 span {
-}
 
 /* .container-2{
   margin-left: 250px;
@@ -245,9 +241,11 @@ header {
     right: 30px;
     letter-spacing: 1px;
 }
+
 .btn#editButton {
     background-color: red;
 }
+
 @media screen and (max-width: 700px) {
     .box {
         width: 70%;
