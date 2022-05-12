@@ -143,7 +143,7 @@ if(mysqli_num_rows($select) > 0){
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="editrequestmodal">
                     <label for="requestType">Request Type</label>
 
                     <select name="request" id="requestType">
@@ -152,19 +152,19 @@ if(mysqli_num_rows($select) > 0){
                     </select>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="editrequestmodal">
                     <label for="location">Location</label>
                     <input id="location" type="text" name="location">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="editrequestmodal">
                     <label for="expiry">Expires After</label>
                     <input id="expiry" type="text" name="expiry">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="editrequestmodal">
                     <label for="foodDescription">Food Description/ Requirement</label>
                     <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
                 </div>
-                <div class="form-group m-0">
+                <div class="form-group m-0" id="editrequestmodal">
                     <button type="submit" class="btn btn-primary btn-block">
                         Submit
                     </button>

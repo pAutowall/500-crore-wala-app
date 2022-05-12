@@ -145,6 +145,12 @@ header {
     padding: 5px;
 }
 
+#editrequestmodal {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 0rem;
+}
+
 .popup {
     object-fit: cover;
     margin-top: 10%;
