@@ -117,9 +117,9 @@ session_start();
                             </form>
                         </div>
                     </div>
-                    <div class="footer">
+                    <!-- <div class="footer">
                         Copyright &copy; 2021 &mdash; Food4thought
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
