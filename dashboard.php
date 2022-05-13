@@ -87,7 +87,8 @@ if(mysqli_num_rows($select) > 0){
                         <h6><?php echo $rows['location']; ?></h6>
                         <h2><?php echo $rows['foodDetails']; ?></h2>
                         <?php if($rows['donorId']==$_SESSION['id']) { ?>
-                                <button class="btn btn-apply-edit" id="editButton" data-toggle="modal" data-target="#editModal">Edit</button>
+                                <?php $ajaxData = $rows?>
+                                <button class="btn btn-apply-edit" id="editButton" data-toggle="modal" data-target="#editModal" data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" >Edit</button>
                         <?php } else { ?>
                                 <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
                                 <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal" data-target="#applyModal" data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" >Apply</button>
@@ -138,39 +139,42 @@ if(mysqli_num_rows($select) > 0){
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Request</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="form-group" id="editrequestmodal">
-                    <label for="requestType">Request Type</label>
-
-                    <select name="request" id="requestType">
-                        <option value="donor">Donor</option>
-                        <option value="reciever">Reciever</option>
-                    </select>
-
-                </div>
-                <div class="form-group" id="editrequestmodal">
-                    <label for="location">Location</label>
-                    <input id="location" type="text" name="location">
-                </div>
-                <div class="form-group" id="editrequestmodal">
-                    <label for="expiry">Expires After</label>
-                    <input id="expiry" type="text" name="expiry">
-                </div>
-                <div class="form-group" id="editrequestmodal">
-                    <label for="foodDescription">Food Description/ Requirement</label>
-                    <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
-                </div>
-                <div class="form-group m-0" id="editrequestmodal">
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Submit
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <form>  
+                        <div class="form-group" id="editRequestModal">
+                            <label for="requestType">Request Type</label>
+
+                            <select name="request" id="requestType" disabled>
+                                <option value="donor">Donor</option>
+                                <option value="reciever">Reciever</option>
+                            </select>
+
+                            <div class="form-group editrequestmodal">
+                                <label for="location">Location</label>
+                                <input id="location" type="text" name="location">
+                            </div>
+                            <div class="form-group editrequestmodal">
+                                <label for="expiry">Expires After</label>
+                                <input id="expiry" type="text" name="expiry">
+                            </div>
+                            <div class="form-group editrequestmodal">
+                                <label for="foodDescription">Food Description/ Requirement</label>
+                                <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary editrequestmodal" id="editModalSubmit" type="button" class="btn btn-primary">Save Data</button>
+                </div>
+
         </div>
     </div>
     <nav class="mobile-nav">
