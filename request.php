@@ -43,9 +43,10 @@ if(mysqli_num_rows($select) > 0){
         </div>
     </header>
     <!--header area end-->
+    <div class="wrapper">
     <!--sidebar start-->
     <section>
-        <div class="sidebar">
+        <div class="sidebar" style="min-height:120vh">
             <center>
             <?php
          if($fetch['pfp'] == ''){
@@ -114,7 +115,7 @@ if(mysqli_num_rows($select) > 0){
                     </div>
 
         </div>
-
+        </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     <script src="js/utils.js"></script>

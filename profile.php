@@ -97,6 +97,7 @@ if(isset($_POST['update_profile'])){
         </div>
     </header>
     <!--header area end-->
+    <div class="wrapper">
     <!--sidebar start-->
     <section>
         <div class="sidebar">
@@ -181,6 +182,7 @@ if(isset($_POST['update_profile'])){
    </form>
 
 </div>
+
 
         <!-- <h1>User Profile</h1>
         <div class="profile-input-field">

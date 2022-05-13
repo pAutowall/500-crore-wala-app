@@ -9,6 +9,10 @@
     --box-shadow: 15px 15px 15px 15px rgba(0, 0, 0, 0.1);
 }
 
+.sidebar {
+    min-height: 112vh;
+}
+
 .delete-btn {
     width: 100%;
     border-radius: 5px;

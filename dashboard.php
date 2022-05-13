@@ -31,7 +31,7 @@ if(mysqli_num_rows($select) > 0){
 </head>
 
 <body>
-    <div class="gridcontainer">
+    
         <!--header area start-->
         <header class="mainhead">
             <div class="left_area">
@@ -43,7 +43,7 @@ if(mysqli_num_rows($select) > 0){
         </header>
         <!--header area end-->
 
-
+        <div class="wrapper">
         <!--sidebar start-->
         <div class="sidebar">
             <center>
