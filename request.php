@@ -67,7 +67,7 @@ if(mysqli_num_rows($select) > 0){
             <a href="profile.php"><i class="fas fa-sliders-h"></i><span>Profile</span></a>
             <a href="dashboard.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
-            <a href="#"><i class="fas fa-table"></i><span>My Requests</span></a>
+            <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
             <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
             
@@ -116,6 +116,13 @@ if(mysqli_num_rows($select) > 0){
 
         </div>
         </div>
+        <nav class="mobile-nav">
+         <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
+         <a href="dashboard.php?myrequest=true"><i class="fas fa-table"  id="bloc-icon"></i></a>
+         <a href="request.php"><i class="fas fa-cogs"  id="bloc-icon"></i></a>
+         <a href="#"><i class="fas fa-info-circle"  id="bloc-icon"></i></a>
+         <a href="profile.php"><i class="fas fa-sliders-h"  id="bloc-icon"></i></a>
+    </nav>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     <script src="js/utils.js"></script>

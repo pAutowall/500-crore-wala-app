@@ -35,7 +35,8 @@ if(mysqli_num_rows($select) > 0){
         <!--header area start-->
         <header class="mainhead">
             <div class="left_area">
-                <h3 class="logo">Food4<span>Thought</span></h3>
+                <h3 class="logo">Food4<span>Thought</span>
+                    </button></h3>               
             </div>
             <div class="right_area">
                 <a href="logout.php" class="logout_btn">Logout</a>
@@ -45,7 +46,7 @@ if(mysqli_num_rows($select) > 0){
 
         <div class="wrapper">
         <!--sidebar start-->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <center>
             <?php
          if($fetch['pfp'] == ''){
@@ -172,8 +173,14 @@ if(mysqli_num_rows($select) > 0){
             </div>
         </div>
     </div>
-    
-
+    <nav class="mobile-nav">
+         <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
+         <a href="dashboard.php?myrequest=true"><i class="fas fa-table"  id="bloc-icon"></i></a>
+         <a href="request.php"><i class="fas fa-cogs"  id="bloc-icon"></i></a>
+         <a href="#"><i class="fas fa-info-circle"  id="bloc-icon"></i></a>
+         <a href="profile.php"><i class="fas fa-sliders-h"  id="bloc-icon"></i></a>
+    </nav>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

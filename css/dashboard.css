@@ -58,7 +58,10 @@ header {
     max-width: 250px;
     color: #fff;
     transition: all 0.3s;
-    z-index: 1;
+}
+
+#sidebar.active {
+    margin-left: -250px;
 }
 
 .sidebar .profile_image {
@@ -256,11 +259,48 @@ header {
     background-color: red;
 }
 
+.mobile-nav {
+    background: #22242a;
+    position: fixed;
+    bottom: 0;
+    height: 65px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#bloc-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    color: white;
+}
+
+.bloc-icon img {
+    width: 30px;
+}
+
 @media screen and (max-width: 700px) {
     .box {
         width: 70%;
     }
     .popup {
         width: 70%;
+    }
+}
+
+@media screen and (min-width: 830px) {
+    .mobile-nav {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 830px) {
+    .sidebar {
+        display: none;
+    }
+    .course-preview {
+        display: none;
     }
 }
