@@ -4,17 +4,18 @@
     include("utils.php");
     $id=$_SESSION['id'];
     $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
-if(mysqli_num_rows($select) > 0){
-   $fetch = mysqli_fetch_assoc($select);
-}
+    if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+    }
     if(isset($_POST['request'])) {
         $requestType = $_POST['request'];
         $location = $_POST['location'];
-        $expiry = strtotime($_POST['expiry']);
+        $expiry = !isset($_POST['expiry']) ? strtotime($_POST['expiry']) : 'NULL';
         $foodDescription = $_POST['foodDescription'];
         $randomSeed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $foodDisplayId = generate_string($randomSeed,3).'-'.generate_string($randomSeed,3).'-'.generate_string($randomSeed,3);
         $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."','".$foodDisplayId."');");
+
     }
 ?>
 <!DOCTYPE html>

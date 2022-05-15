@@ -9,7 +9,7 @@
         sendInvalidRequestMessage();
     }
     switch($actionType) {
-        case 'applypage' : 
+        case 'apply' : 
             $foodId = $_POST['foodId'] ?? null;
             $message = $_POST['message'] ?? null;
             if (!$foodId) {
@@ -21,6 +21,26 @@
                     http_response_code(201);
                     echo json_encode(
                         array("message" => "Request submitted successfully!")
+                    );
+                } catch(Exception $e) {
+                    return sendErrorMessage($e->getMessage());
+                }
+            }
+            break;
+        case 'edit':
+            $foodId = $_POST['foodId'] ?? null;
+            $location = $_POST['location'] ?? 'NULL';
+            $foodDetails = $_POST['foodDetails'] ?? 'NULL';
+            $expiry = !isset($_POST['expiry']) ? strtotime($_POST['expiry']) : 'NULL';
+            if (!$foodId) {
+                sendInvalidRequestMessage();
+            } else {
+                try {
+                    $query = "UPDATE food SET location='".$location."',foodDetails='".$foodDetails."',expiry = '".$expiry."' WHERE foodId=$foodId";
+                    $result = $con->query($query);
+                    http_response_code(200);
+                    echo json_encode(
+                        array("message" => "Request updated successfully!")
                     );
                 } catch(Exception $e) {
                     return sendErrorMessage($e->getMessage());
