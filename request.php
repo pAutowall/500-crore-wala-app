@@ -10,11 +10,11 @@
     if(isset($_POST['request'])) {
         $requestType = $_POST['request'];
         $location = $_POST['location'];
-        $expiry = $_POST['expiry'];
+        $expiry = strtotime($_POST['expiry']);
         $foodDescription = $_POST['foodDescription'];
         $randomSeed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $foodDisplayId = generate_string($randomSeed,3).'-'.generate_string($randomSeed,3).'-'.generate_string($randomSeed,3);
-        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."','".$expiry."','".$requestType."','".$foodDisplayId."');");
+        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."','".$foodDisplayId."');");
 
     }
 ?>
