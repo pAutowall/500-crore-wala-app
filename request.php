@@ -10,11 +10,11 @@
     if(isset($_POST['request'])) {
         $requestType = $_POST['request'];
         $location = $_POST['location'];
-        $expiry = !isset($_POST['expiry']) ? strtotime($_POST['expiry']) : 'NULL';
+        $expiry = $_POST['expiry'];
         $foodDescription = $_POST['foodDescription'];
         $randomSeed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $foodDisplayId = generate_string($randomSeed,3).'-'.generate_string($randomSeed,3).'-'.generate_string($randomSeed,3);
-        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."','".$foodDisplayId."');");
+        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."','".$expiry."','".$requestType."','".$foodDisplayId."');");
 
     }
 ?>
@@ -80,7 +80,7 @@
 
 
 
-    <div id="box1" class="container-1">
+    <div class="container-1">
     
     <h2>Donation Form</h2>
                     <!-- <a class="close" href="#">&times;</a> -->

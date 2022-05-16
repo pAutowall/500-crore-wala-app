@@ -46,6 +46,7 @@ if(isset($_POST['update_profile'])){
            move_uploaded_file($update_image_tmp_name, $update_image_folder);
         }
         $message[] = 'Image updated succssfully!';
+           
      }
   }
   
@@ -83,7 +84,7 @@ if(isset($_POST['update_profile'])){
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <script src="js/cards.js" defer></script>
+    
 </head>
 
 <body>
@@ -134,7 +135,7 @@ if(isset($_POST['update_profile'])){
 
 
 
-    <div id="box1" class="container-1">
+    <div  class="container-1">
 
     <div class="update-profile">
 
@@ -184,34 +185,7 @@ if(isset($_POST['update_profile'])){
 </div>
 
 
-        <!-- <h1>User Profile</h1>
-        <div class="profile-input-field">
-
-            <form method="post" action="#">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" name="name" style="width:20em;" placeholder="name"
-                        value="<?php echo $row['name']; ?>" required />
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email" style="width:20em;" placeholder="email"
-                        required value="<?php echo $row['email']; ?>" />
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="text" class="form-control" name="password" style="width:20em;" required
-                        placeholder="password" value="<?php echo $row['password']; ?>"></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="submit" name="submit" class="btn btn-primary" style="width:20em; margin:0;"><br><br>
-                    <center>
-                        <a href="logout.php">Log out</a>
-                    </center>
-                </div>
-            </form>
-
-        </div> -->
+     
 
     </div>
     <nav class="mobile-nav">
@@ -222,6 +196,9 @@ if(isset($_POST['update_profile'])){
          <a href="profile.php"><i class="fas fa-sliders-h"  id="bloc-icon"></i></a>
     </nav>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/cards.js" defer></script>
 </body>
 
 </html>

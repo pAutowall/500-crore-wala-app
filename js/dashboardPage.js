@@ -1,10 +1,14 @@
-$(".course-preview").click(function () {
+$(".course-preview").on("click", function() {
     window.open(`https://maps.google.com/?q=${$(this).attr("data")}`, "_blank").focus();
 });
-$(document).ready(async function () {
+// $(".btn#locationButton").on("click", function() {
+
+//     window.open(`https://maps.google.com/?q=${$(this).attr("data")}`, "_blank").focus();
+// });
+$(document).ready(async function() {
     $("#expiry").datetimepicker();
 });
-$("#applyModal").on("show.bs.modal", function (event) {
+$("#applyModal").on("show.bs.modal", function(event) {
     var button = $(event.relatedTarget);
     var ajaxData = button.data("ajax-data");
     var modal = $(this);
@@ -15,7 +19,7 @@ $("#applyModal").on("show.bs.modal", function (event) {
     modal.find("#applyModalSubmit").data(ajaxData);
 });
 
-$("#editModal").on("show.bs.modal", function (event) {
+$("#editModal").on("show.bs.modal", function(event) {
     var button = $(event.relatedTarget);
     var ajaxData = button.data("ajax-data");
     var modal = $(this);
@@ -36,18 +40,18 @@ $("#editModal").on("show.bs.modal", function (event) {
 //     $("#expiry").datetimepicker("destroy");
 // });
 
-$("#applyModal #applyModalSubmit").click(function () {
+$("#applyModal #applyModalSubmit").click(function() {
     var modal = $("#applyModal");
 
     let foodId = $(this).data().foodId;
     let message = modal.find("textarea").val().replace(/\n/g, "<br>");
 
-    $.post("api.php", { foodId: foodId, message: message, actionType: "apply" }, function (result) {
+    $.post("api.php", { foodId: foodId, message: message, actionType: "apply" }, function(result) {
         console.log(result);
     });
 });
 
-$("#editModal #editModalSubmit").click(function () {
+$("#editModal #editModalSubmit").click(function() {
     var modal = $("#editModal");
     let foodId = $(this).data().foodId;
     // let message = modal.val().replace(/\n/g, "<br>");
@@ -65,7 +69,7 @@ $("#editModal #editModalSubmit").click(function () {
         actionType: "edit",
     };
 
-    $.post("api.php", postData, function (result) {
+    $.post("api.php", postData, function(result) {
         console.log(result);
     });
 });

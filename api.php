@@ -31,12 +31,12 @@
             $foodId = $_POST['foodId'] ?? null;
             $location = $_POST['location'] ?? 'NULL';
             $foodDetails = $_POST['foodDetails'] ?? 'NULL';
-            $expiry = !isset($_POST['expiry']) ? strtotime($_POST['expiry']) : 'NULL';
+            $expiry = strtotime($_POST['expiry']);
             if (!$foodId) {
                 sendInvalidRequestMessage();
             } else {
                 try {
-                    $query = "UPDATE food SET location='".$location."',foodDetails='".$foodDetails."',expiry = '".$expiry."' WHERE foodId=$foodId";
+                    $query = "UPDATE food SET location='".$location."',foodDetails='".$foodDetails."',expiry = ".$expiry." WHERE foodId=$foodId";
                     $result = $con->query($query);
                     http_response_code(200);
                     echo json_encode(

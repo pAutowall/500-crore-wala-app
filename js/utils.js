@@ -1,14 +1,16 @@
-$(document).ready(async function () {
+$(document).ready(async function() {
     console.log("Page Loaded");
 });
 
-$(".logo").click(function () {
+$(".logo ").click(function() {
     window.location.href = "/FoodDonationWebApp/dashboard.php";
 });
 
-$("#location").click(function () {
+$("#location").click(function() {
     getLocation();
 });
+
+
 
 function getLocation() {
     if (navigator.geolocation) {
