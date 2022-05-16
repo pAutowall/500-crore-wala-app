@@ -112,7 +112,7 @@ if(mysqli_num_rows($select) > 0){
                                     data-target="#editModal"
                                     data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Edit</button>
                                 <?php } else { ?>
-                                    <button type="button" class="btn btn-apply-edit" id="locationButton">Location</button>
+                                    <button type="button" class="btn btn-apply-edit" id="locationButton" data="<?php echo $rows['location']; ?>">Location</button>
                                 <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
                                 <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
                                     data-target="#applyModal"
