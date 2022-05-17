@@ -38,7 +38,7 @@ $("#editModal").on("show.bs.modal", function(event) {
 
     modal.find("#requestType").val(ajaxData.requestType);
     modal.find("#location").val(ajaxData.location);
-    modal.find("#expiry").val(ajaxData.expirry);
+    modal.find("#expiry").val(ajaxData.expiry);
     modal.find("#foodDescription").val(ajaxData.foodDetails.replace("<br>", /\n/g));
 
     modal.find("#editModalSubmit").data(ajaxData);
