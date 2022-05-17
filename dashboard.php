@@ -1,21 +1,37 @@
 <?php
-session_start();
-if( !isset($_SESSION['id']) )
-    header('Location: login.php');
-include("connection.php");
-$myrequest = $_GET['myrequest']??null;
-$query = $myrequest ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : "select * from food ORDER BY foodId DESC"; 
-$id=$_SESSION['id'];
-$result=mysqli_query($con,$query); 
-$select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
-if(mysqli_num_rows($select) > 0){
-   $fetch = mysqli_fetch_assoc($select);
-}
-
-
-
-
-      ?>
+    session_start();
+    if( !isset($_SESSION['id']) )
+        header('Location: login.php');
+    include("connection.php");
+    $myrequest = $_GET['myrequest']??null;
+    $query = $myrequest ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : "select * from food ORDER BY foodId DESC"; 
+    $id=$_SESSION['id'];
+    $result = mysqli_query($con,$query); 
+    $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
+    if(mysqli_num_rows($select) > 0){
+        $fetch = mysqli_fetch_assoc($select);
+    }
+    $appliedQuery = mysqli_query($con,'SELECT f.foodId 
+        from food f
+        INNER JOIN requests r
+        ON r.foodId = f.foodId AND r.requestorId = '.$_SESSION['id'].'
+        ORDER BY f.foodId;
+    ');
+    $alreadyApplied = array();
+    while($applied = mysqli_fetch_assoc($appliedQuery)){
+        $alreadyApplied[] = $applied['foodId'];
+    }
+    $donorQuery = mysqli_query($con,'SELECT f.foodId 
+        from food f
+        INNER JOIN requests r
+        ON r.foodId = f.foodId AND f.donorId = '.$_SESSION['id'].'
+        ORDER BY f.foodId;
+    ');
+    $hasRecievedRequestForDonation = array();
+    while($donation = mysqli_fetch_assoc($donorQuery)){
+        $hasRecievedRequestForDonation[] = $donation['foodId'];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -100,8 +116,10 @@ if(mysqli_num_rows($select) > 0){
                             <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
                             <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
                                 data-target="#applyModal"
-                                data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Apply</button>
+                                data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>"
+                                <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?> >Apply</button>
                             <?php } ?>
+                            <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButton" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
                         </p>
                         <div>
                             <div class="modal-footer" id="mobile-2">
@@ -116,7 +134,8 @@ if(mysqli_num_rows($select) > 0){
                                 <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
                                 <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
                                     data-target="#applyModal"
-                                    data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Apply</button>
+                                    data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" 
+                                    <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?> >Apply</button>
                                 <?php } ?>
                             </div>
                         </div>
