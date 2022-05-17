@@ -70,12 +70,12 @@ $("#editModal #editModalSubmit").click(function() {
 
     var requestType = modal.find("#requestType").val();
     var location = modal.find("#location").val();
-    var expirry = modal.find("#expiry").val();
+    var expiry = modal.find("#expiry").val();
     var foodDetails = modal.find("#foodDescription").val().replace(/\n/g, "<br>");
 
     var postData = {
         foodId,
-        expirry,
+        expiry,
         location,
         foodDetails,
         actionType: "edit",
