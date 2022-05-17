@@ -1,6 +1,5 @@
-$(".course-preview,#locationButton").on("click", function() {
+$(".course-preview,#locationButton").on("click", function () {
     window.open(`https://maps.google.com/?q=${$(this).attr("data")}`, "_blank").focus();
-
 });
 // $(".fra").on("click", function() {
 //     console.log("Hi");
@@ -8,8 +7,7 @@ $(".course-preview,#locationButton").on("click", function() {
 
 // });
 
-
-$("#load").click(function() {
+$("#load").click(function () {
     var new_url = $("#url").val();
     $("#main_frame").attr("src", new_url);
 });
@@ -17,10 +15,10 @@ $("#load").click(function() {
 
 //     window.open(`https://maps.google.com/?q=${$(this).attr("data")}`, "_blank").focus();
 // });
-$(document).ready(async function() {
+$(document).ready(async function () {
     $("#expiry").datetimepicker();
 });
-$("#applyModal").on("show.bs.modal", function(event) {
+$("#applyModal").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var ajaxData = button.data("ajax-data");
     var modal = $(this);
@@ -31,7 +29,7 @@ $("#applyModal").on("show.bs.modal", function(event) {
     modal.find("#applyModalSubmit").data(ajaxData);
 });
 
-$("#editModal").on("show.bs.modal", function(event) {
+$("#editModal").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var ajaxData = button.data("ajax-data");
     var modal = $(this);
@@ -52,23 +50,26 @@ $("#editModal").on("show.bs.modal", function(event) {
 //     $("#expiry").datetimepicker("destroy");
 // });
 
-$("#applyModal #applyModalSubmit").click(function() {
+$("#applyModal #applyModalSubmit").click(function () {
     var modal = $("#applyModal");
+    var self = $(this);
 
-    let foodId = $(this).data().foodId;
-    let message = modal.find("textarea").val().replace(/\n/g, "<br>");
+    var foodId = $(this).data().foodId;
+    var message = modal.find("textarea").val().replace(/\n/g, "<br>");
 
-    $.post("api.php", { foodId: foodId, message: message, actionType: "apply" }, function(result) {
+    $.post("api.php", { foodId: foodId, message: message, actionType: "apply" }, function (result) {
         console.log(result);
+        self.parent().find(".divClose").click();
+        $.toast("success", JSON.parse(result).message);
     });
 });
 
-$("#editModal #editModalSubmit").click(function() {
+$("#editModal #editModalSubmit").click(function () {
     var modal = $("#editModal");
-    let foodId = $(this).data().foodId;
-    // let message = modal.val().replace(/\n/g, "<br>");
+    var self = $(this);
 
-    var requestType = modal.find("#requestType").val();
+    var foodId = $(this).data().foodId;
+
     var location = modal.find("#location").val();
     var expiry = modal.find("#expiry").val();
     var foodDetails = modal.find("#foodDescription").val().replace(/\n/g, "<br>");
@@ -81,7 +82,79 @@ $("#editModal #editModalSubmit").click(function() {
         actionType: "edit",
     };
 
-    $.post("api.php", postData, function(result) {
-        console.log(result);
+    $.post("api.php", postData, function (result) {
+        self.parent().find(".divClose").click();
+        $.toast("success", JSON.parse(result).message);
     });
 });
+
+$("#viewButton").click(function () {
+    var foodId = $(this).parent().find("#editButton").data("ajax-data").foodId;
+    request = $.ajax({
+        type: "POST",
+        url: "api.php",
+        data: { foodId: foodId, actionType: "view" },
+        success: function (result) {
+            console.log(result);
+            $("#viewModal").remove();
+            generate_view_modal_html(JSON.parse(result).data);
+            $("body").find("#viewModal").modal();
+        },
+        error: function (jqXHR, exception) {
+            console.log(exception);
+        },
+    });
+});
+
+function generate_view_modal_html(data) {
+    var trHtml = "";
+    data.forEach((request, ind) => {
+        trHtml += `
+            <tr>
+                <th scope="row">${ind + 1}</th>
+                <td>${request.requestorName}</td>
+                <td>${request.details}</td>
+                <td>
+                    <button class="btn btn-success"><i class="bi bi-check2" style="font-size: 20px;"></i></button>
+                    <button class="btn btn-danger"><i class="bi bi-x" style="font-size: 20px;"></i></button>
+                </td>
+            </tr>
+        `;
+    });
+    var modalHtml = `
+        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel">View Requests</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${trHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    
+    `;
+    $("body").append(modalHtml);
+}

@@ -45,8 +45,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/toast.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -176,7 +178,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
                         <button id="applyModalSubmit" type="button" class="btn btn-primary">Send message</button>
                     </div>
                 </div>
@@ -219,7 +221,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button"  class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
                         <button class="btn btn-primary editrequestmodal" id="editModalSubmit" type="button"
                             class="btn btn-primary">Save Data</button>
                     </div>
@@ -246,9 +248,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="js/utils.js"></script>
         <script src="js/dashboardPage.js"></script>
         <script src="js/cards.js"></script>
+        <script src="js/toast.js"></script>
 </body>
 
 </html>

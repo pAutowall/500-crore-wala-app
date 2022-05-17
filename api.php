@@ -47,8 +47,31 @@
                 }
             }
             break;
+        case 'view':
+            $foodId = $_POST['foodId'];
+            if (!$foodId) {
+                sendInvalidRequestMessage();
+            } else {
+                try {
+                    $query = "SELECT r.*, u.name AS requestorName
+                        FROM requests r
+                        INNER JOIN users u
+                        ON r.requestorId = u.id
+                        WHERE r.foodId =".$foodId.";";
+                    $appliedQuery = mysqli_query($con,$query);
+                    $recieverRequest = array();
+                    while($applied = mysqli_fetch_assoc($appliedQuery)){
+                        $recieverRequest[] = $applied;
+                    };
+                    http_response_code(200);
+                    echo json_encode(
+                        array("data" => $recieverRequest)
+                    );
+                } catch(Exception $e) {
+                    return sendErrorMessage($e->getMessage());
+                }
+            }
         default:
-            
     }
     function sendInvalidRequestMessage() {
         return sendErrorMessage('Invalid request');
