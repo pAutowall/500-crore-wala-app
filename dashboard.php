@@ -11,15 +11,21 @@
     if(mysqli_num_rows($select) > 0){
         $fetch = mysqli_fetch_assoc($select);
     }
-    $appliedQuery = mysqli_query($con,'SELECT f.foodId 
+    $appliedQuery = mysqli_query($con,'SELECT f.foodId,r.status,r.requestId
         from food f
         INNER JOIN requests r
         ON r.foodId = f.foodId AND r.requestorId = '.$_SESSION['id'].'
         ORDER BY f.foodId;
     ');
     $alreadyApplied = array();
+    $isRequestApproved = array();
+    $requestIdFoodIdMap = array();
     while($applied = mysqli_fetch_assoc($appliedQuery)){
         $alreadyApplied[] = $applied['foodId'];
+        if($applied['status'] == 1) {
+            $isRequestApproved[] = $applied['foodId'];
+        }
+        $requestIdFoodIdMap[$applied['foodId']] = $applied['requestId'];
     }
     $donorQuery = mysqli_query($con,'SELECT f.foodId 
         from food f
@@ -122,6 +128,7 @@
                                 <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?> >Apply</button>
                             <?php } ?>
                             <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButton" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
+                            <?php if(in_array($rows['foodId'],$isRequestApproved)) { echo '<button class="btn btn-view-edit btn-success" id="trackingButton" data-toggle="modal" data-ajax-data="'.$requestIdFoodIdMap[$rows['foodId']].'">Tracking</button>'; } else { echo ''; } ?>
                         </p>
                         <div>
                             <div class="modal-footer" id="mobile-2">
@@ -133,10 +140,8 @@
                                     data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Edit</button>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-apply-edit" id="locationButton" data="<?php echo $rows['location']; ?>">Location</button>
-                                <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
-                                <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
-                                    data-target="#applyModal"
-                                    data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" 
+                                    <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
+                                    <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal" data-target="#applyModal" data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" 
                                     <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?> >Apply</button>
                                 <?php } ?>
                             </div>

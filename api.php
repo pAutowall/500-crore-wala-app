@@ -71,6 +71,45 @@
                     return sendErrorMessage($e->getMessage());
                 }
             }
+            break;
+        case 'approveorreject':
+            //0 -> pending, 1->approved, 2->rejected 
+            $requestId = $_POST['requestId'];
+            $statusType = $_POST['statustype']; 
+            if (!$requestId || !$actionType) {
+                sendInvalidRequestMessage();
+            } else {
+                try {
+                    $query = "UPDATE requests SET status = ".$statusType." WHERE requestId = ".$requestId.";";
+                    $setStatusQuery = mysqli_query($con,$query);
+                    http_response_code(200);
+                    echo json_encode(
+                        array("message" => "Changed status type successfully","status" => $statusType, "requestId" => $requestId)
+                    );
+                } catch(Exception $e) {
+                    return sendErrorMessage($e->getMessage());
+                }
+            }
+            break;
+        case 'addtracking':
+            //0 -> pending, 1->approved, 2->rejected 
+            $requestId = $_POST['requestId'];
+            $trackingLink = $_POST['trackingLink']; 
+            if (!$requestId || !$trackingLink) {
+                sendInvalidRequestMessage();
+            } else {
+                try {
+                    $query = "INSERT INTO tracking VALUES (".$requestId.",'".$trackingLink."');";
+                    $setStatusQuery = mysqli_query($con,$query);
+                    http_response_code(200);
+                    echo json_encode(
+                        array("message" => "Successfully added tracking info.","requestId" => $requestId, "trackingLink" => $trackingLink)
+                    );
+                } catch(Exception $e) {
+                    return sendErrorMessage($e->getMessage());
+                }
+            }
+            break;
         default:
     }
     function sendInvalidRequestMessage() {
