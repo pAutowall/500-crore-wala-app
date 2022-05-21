@@ -98,6 +98,8 @@ header {
 .sidebar i {
     padding-right: 10px;
 }
+
+
 /* .content{
   margin-left: 250px;
   background: url(background.png) no-repeat;
@@ -120,6 +122,8 @@ header {
     margin: 20px;
     border: 1px solid black;
 }
+
+
 /* .container-2{
   margin-left: 250px;
   height: 100vh;
@@ -248,16 +252,20 @@ header {
     letter-spacing: 1px;
     margin-right: 5px;
 }
+
 .btn.btn-apply-edit {
     background-color: #19b3d3;
 }
+
 .btn#editButton {
     background-color: red;
 }
+
 .mobile-1 {
     display: flex;
     justify-content: flex-end;
 }
+
 .btn#locationButton {
     background-color: rgb(69 134 147);
 }
@@ -316,6 +324,12 @@ header {
         display: none;
     }
     .btn.btn-apply-edit {
+        font-size: 14px;
+        padding: 8px 18px;
+        position: static;
+        letter-spacing: 1px;
+    }
+    .btn.btn-view-edit {
         font-size: 14px;
         padding: 8px 18px;
         position: static;

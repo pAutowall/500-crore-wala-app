@@ -4,7 +4,7 @@
         header('Location: login.php');
     include("connection.php");
     $myrequest = $_GET['myrequest']??null;
-    $query = $myrequest ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : "select * from food ORDER BY foodId DESC"; 
+    $query = $myrequest ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : "select * from food where donorId!=".$_SESSION['id']." ORDER BY foodId DESC"; 
     $id=$_SESSION['id'];
     $result = mysqli_query($con,$query); 
     $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
@@ -96,7 +96,7 @@
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
-            <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
+            <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
 
         </div>
         <!--sidebar end-->
