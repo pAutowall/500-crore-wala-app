@@ -82,6 +82,11 @@
                 try {
                     $query = "UPDATE requests SET status = ".$statusType." WHERE requestId = ".$requestId.";";
                     $setStatusQuery = mysqli_query($con,$query);
+
+                    if($statusType == 1) {
+                        $query = "INSERT INTO tracking VALUES (".$requestId.",NULL,1);";
+                        $setStatusQuery = mysqli_query($con,$query);
+                    }
                     http_response_code(200);
                     echo json_encode(
                         array("message" => "Changed status type successfully","status" => $statusType, "requestId" => $requestId)
@@ -99,11 +104,29 @@
                 sendInvalidRequestMessage();
             } else {
                 try {
-                    $query = "INSERT INTO tracking VALUES (".$requestId.",'".$trackingLink."');";
+                    $query = "UPDATE tracking SET trackingLink = '".$trackingLink."', deliveryStatus = 2 WHERE requestId = ".$requestId.";";
                     $setStatusQuery = mysqli_query($con,$query);
                     http_response_code(200);
                     echo json_encode(
                         array("message" => "Successfully added tracking info.","requestId" => $requestId, "trackingLink" => $trackingLink)
+                    );
+                } catch(Exception $e) {
+                    return sendErrorMessage($e->getMessage());
+                }
+            }
+            break;
+        case 'updateDeliveryStatus':
+            $requestId = $_POST['requestId'];
+            $deliveryStatus = $_POST['deliveryStatus']; 
+            if (!$requestId || !$deliveryStatus) {
+                sendInvalidRequestMessage();
+            } else {
+                try {
+                    $query = "UPDATE tracking SET deliveryStatus = ".$deliveryStatus." WHERE requestId = ".$requestId.";";
+                    $setDeliveryStatusQuery = mysqli_query($con,$query);
+                    http_response_code(200);
+                    echo json_encode(
+                        array("message" => "Successfully updated delivery status.","requestId" => $requestId, "deliveryStatus" => $deliveryStatus)
                     );
                 } catch(Exception $e) {
                     return sendErrorMessage($e->getMessage());

@@ -2,22 +2,21 @@
     session_start();
     if( !isset($_SESSION['id']) )
         header('Location: login.php');
+    if( !isset($_GET['requestid']) )
+        header('Location: dashboard.php');
     include("connection.php");
-    $query = "SELECT * from requests
-    Join tracking
-    WHERE requests.status = 1 
-    AND requests.requestorId = ".$_SESSION['id']." 
-    OR (requests.donerId = ".$_SESSION['id'].")";
+    $query = "SELECT t.trackingLink,t.deliveryStatus,f.foodDisplayId,r.requestorId,f.donorId
+    FROM tracking t
+    INNER JOIN requests r
+    ON t.requestId = r.requestId
+    INNER JOIN food f
+    ON r.foodId = f.foodId AND r.requestId = ".$_GET['requestid'].";";
     $id=$_SESSION['id'];
     $result = mysqli_query($con,$query); 
     $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
     if(mysqli_num_rows($select) > 0){
         $fetch = mysqli_fetch_assoc($select);
     }
- $trackingS = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
- if(mysqli_num_rows($select) > 0){
-     $trackS = mysqli_fetch_assoc($select);
- }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -85,79 +84,85 @@
         <div id="box" class="container-1">
             <?php while($rows=mysqli_fetch_assoc($result)){?>
             <div class="courses-container">
-            <div class="container px-1 px-md-4 py-5 mx-auto">
-    <div class="card">
-        <div class="row d-flex justify-content-between px-3 top">
-            <div class="d-flex">
-                <h5>REQUEST ID : <span class="text-primary font-weight-bold"><?php echo $rows['foodDisplayId']; ?></span></h5>
-            </div>
-            <!-- <div class="d-flex flex-column text-sm-right">
-                <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
-                <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
-            </div> -->
-        </div>
-        <!-- Add class 'active' to progress -->
-        <div class="row d-flex justify-content-center">
-            <div class="col-12">
-            <ul id="progressbar" class="text-center">
-                <?php if($rows['deliveryStatus']>="1") {?> 
-                <li class="active step0"></li> 
-                <?php } else { ?>
-                    <li class="step0"></li>
-                <?php } ?>
-                <?php if($rows['deliveryStatus']>="2") {?> 
-                <li class="active step0"></li> 
-                <?php } else { ?>
-                    <li class="step0"></li>
-                <?php } ?>  
-                <?php if($rows['deliveryStatus']>="3") {?> 
-                <li class="active step0"></li> 
-                <?php } else { ?>
-                    <li class="step0"></li>
-                <?php } ?>  
-                <?php if($rows['deliveryStatus']>="4") {?> 
-                <li class="active step0"></li> 
-                <?php } else { ?>
-                    <li class="step0"></li>
-                <?php } ?>
-            </ul>
-            </div>
-        </div>
-        <div class="row justify-content-between top">
-            <div class="row d-flex icon-content">
-                <img class="icon r" src="https://i.imgur.com/9nnc9Et.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Request<br>Accepted</p>
+                <div class="container px-1 px-md-4 py-5 mx-auto">
+                    <div class="card">
+                        <div class="row d-flex justify-content-between px-3 top">
+                            <div class="d-flex">
+                                <h5>REQUEST ID : <span class="text-primary font-weight-bold"><?php echo $rows['foodDisplayId']; ?></span></h5>
+                            </div>
+                            <!-- <div class="d-flex flex-column text-sm-right">
+                                <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
+                                <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
+                            </div> -->
+                        </div>
+                        <!-- Add class 'active' to progress -->
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12">
+                            <ul id="progressbar" class="text-center">
+                                <?php if($rows['deliveryStatus']>="1") {?> 
+                                <li class="active step0"></li> 
+                                <?php } else { ?>
+                                    <li class="step0"></li>
+                                <?php } ?>
+                                <?php if($rows['deliveryStatus']>="2") {?> 
+                                <li class="active step0"></li> 
+                                <?php } else { ?>
+                                    <li class="step0"></li>
+                                <?php } ?>  
+                                <?php if($rows['deliveryStatus']>="3") {?> 
+                                <li class="active step0"></li> 
+                                <?php } else { ?>
+                                    <li class="step0"></li>
+                                <?php } ?>  
+                                <?php if($rows['deliveryStatus']>="4") {?> 
+                                <li class="active step0"></li> 
+                                <?php } else { ?>
+                                    <li class="step0"></li>
+                                <?php } ?>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between top">
+                            <div class="row d-flex icon-content">
+                                <img class="icon r" src="https://i.imgur.com/9nnc9Et.png">
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Request<br>Accepted</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon r" src="https://i.imgur.com/u1AzR7w.png">
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Food<br>Pick Up</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon r" src="https://i.imgur.com/TkPm63y.png">
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Food<br>Delivery</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon r" src="https://i.imgur.com/HdsziHP.png">
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Food<br>Deliverd</p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if($rows['deliveryStatus'] == 1 && $rows['requestorId'] == $_SESSION['id']) {?>
+                            <div class="d-flex justify-content-center my-1"><button type="button" class="btn btn-primary " id="trackingButton" data-ajax-data="<?php echo $_GET['requestid']?>">Add Tracking Info</button></div>
+                        <?php } ?>
+                        <?php if($rows['deliveryStatus'] == 2 && $rows['donorId'] == $_SESSION['id']) {?>
+                            <div class="d-flex justify-content-center my-1"><button type="button" class="btn btn-primary " id="locationReachedButton" data-ajax-data="<?php echo $_GET['requestid']?>">Food Picked Up</button></div>
+                        <?php }?>
+                        <?php if($rows['deliveryStatus'] == 3 && $rows['requestorId'] == $_SESSION['id']) { ?>
+                            <div class="d-flex justify-content-center my-1"><button type="button" class="btn btn-success " id="completeRequestButton" data-ajax-data="<?php echo $_GET['requestid']?>">Complete Request</button></div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-            <div class="row d-flex icon-content">
-                <img class="icon r" src="https://i.imgur.com/u1AzR7w.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Food<br>Pick Up</p>
-                </div>
-            </div>
-            <div class="row d-flex icon-content">
-                <img class="icon r" src="https://i.imgur.com/TkPm63y.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Food<br>Delivery</p>
-                </div>
-            </div>
-            <div class="row d-flex icon-content">
-                <img class="icon r" src="https://i.imgur.com/HdsziHP.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Food<br>Deliverd</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-            
-
-
-        </div>
         <?php } ?>
-
+        
+    </div>
 
         
         <nav class="mobile-nav">
@@ -181,7 +186,7 @@
         </script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="js/dashboardPage.js"></script>
+        <script src="js/tracking.js"></script>
         <script src="js/toast.js"></script>
 </body>
 
