@@ -124,8 +124,11 @@ if(isset($_POST['update_profile'])){
             <a href="dashboard.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
-            <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
-            <!-- <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
+            
+            <a href="dashboard.php?appliedrequest=true"><i class="fas fa-table"></i><span>Applied Request</span></a>
+            <!-- <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
+            
+        </div>
 
         </div>
         <!--sidebar end-->
