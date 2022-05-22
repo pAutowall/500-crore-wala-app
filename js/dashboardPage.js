@@ -36,10 +36,15 @@ $("#editModal").on("show.bs.modal", function(event) {
 
     modal.find("#requestType").val(ajaxData.requestType);
     modal.find("#location").val(ajaxData.location);
-    modal.find("#expiry").val(ajaxData.expiry);
     modal.find("#foodDescription").val(ajaxData.foodDetails.replace("<br>", /\n/g));
 
     modal.find("#editModalSubmit").data(ajaxData);
+
+    if (ajaxData.requestType == "reciever") {
+        modal.find("#expiry").parent().hide();
+    } else {
+        modal.find("#expiry").val(ajaxData.expiry);
+    }
 });
 
 // $("#editModal").on("shown.bs.modal", function (event) {

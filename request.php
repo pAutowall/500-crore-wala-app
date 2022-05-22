@@ -12,11 +12,11 @@
     if(isset($_POST['request'])) {
         $requestType = $_POST['request'];
         $location = $_POST['location'];
-        $expiry = strtotime($_POST['expiry']);
+        $expiry = $_POST['expiry'];
         $foodDescription = $_POST['foodDescription'];
         $randomSeed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $foodDisplayId = generate_string($randomSeed,3).'-'.generate_string($randomSeed,3).'-'.generate_string($randomSeed,3);
-        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."','".$foodDisplayId."');");
+        $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."','".$requestType."','".$foodDisplayId."','".$expiry."');");
         header('Location: dashboard.php?myrequest=true');
     }
 ?>
