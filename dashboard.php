@@ -37,6 +37,11 @@
     while($donation = mysqli_fetch_assoc($donorQuery)){
         $hasRecievedRequestForDonation[] = $donation['foodId'];
     }
+
+    $checkresult = mysqli_query($con, 'SELECT * FROM food');
+    $roww = mysqli_fetch_assoc($checkresult)
+   
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -246,6 +251,16 @@
                 </div>
             </div>
         </div>
+        <?php  if($roww == null){ ?>
+
+        <div class="requestnotfound">
+        <img src="img/requestblack.png" width="300" height="300">
+                                    </div>
+        <div class="requestnotfoundM">
+        <img src="img/request.png" width="300" height="300">
+                                    </div>
+        <?php } ?>
+
         <nav class="mobile-nav">
             <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table" id="bloc-icon"></i></a>
