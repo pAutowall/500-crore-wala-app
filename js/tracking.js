@@ -1,4 +1,4 @@
-$("#trackingButton").click(function () {
+$("#trackingButton").click(function() {
     $("body").remove("#trackingModal");
     generate_tracking_modal_html($(this).data("ajax-data"));
     $("body").find("#trackingModal").modal();
@@ -37,51 +37,60 @@ function generate_tracking_modal_html(requestId) {
     $("body").append(modalHtml);
 }
 
-$(document).on("click", "#trackingModalSubmit", function () {
+$(document).on("click", "#trackingModalSubmit", function() {
     var requestId = $(this).data("ajax-data");
     var self = $(this);
     request = $.ajax({
         type: "POST",
         url: "api.php",
         data: { requestId: requestId, trackingLink: $("#trackingModal").find("#trackingInfo").val(), actionType: "addtracking" },
-        success: function (result) {
+        success: function(result) {
             console.log(result);
             $.toast("success", JSON.parse(result).message);
             self.closest(".modal-content").find(".divClose").click();
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
         },
-        error: function (jqXHR, exception) {
+        error: function(jqXHR, exception) {
             console.log(exception);
         },
     });
 });
 
-$("#locationReachedButton").click(function () {
+$("#locationReachedButton").click(function() {
     var requestId = $(this).data("ajax-data");
     request = $.ajax({
         type: "POST",
         url: "api.php",
         data: { requestId: requestId, deliveryStatus: 3, actionType: "updateDeliveryStatus" },
-        success: function (result) {
+        success: function(result) {
             console.log(result);
             $.toast("success", JSON.parse(result).message);
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
         },
-        error: function (jqXHR, exception) {
+        error: function(jqXHR, exception) {
             console.log(exception);
         },
     });
 });
 
-$("#completeRequestButton").click(function () {
+$("#completeRequestButton").click(function() {
     var requestId = $(this).data("ajax-data");
     request = $.ajax({
         type: "POST",
         url: "api.php",
         data: { requestId: requestId, deliveryStatus: 4, actionType: "updateDeliveryStatus" },
-        success: function (result) {
+        success: function(result) {
             console.log(result);
             $.toast("success", JSON.parse(result).message);
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
         },
-        error: function (jqXHR, exception) {
+        error: function(jqXHR, exception) {
             console.log(exception);
         },
     });
