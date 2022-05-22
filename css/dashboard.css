@@ -275,6 +275,7 @@ header {
 }
 
 .mobile-nav {
+    border-top: 1px solid #393b40;
     background: #22242a;
     position: fixed;
     bottom: 0;
@@ -396,5 +397,8 @@ header {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+    header {
+        border-bottom: 1px solid #393b40!important;
     }
 }

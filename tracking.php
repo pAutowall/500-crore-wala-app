@@ -156,6 +156,11 @@
                         <?php if($rows['deliveryStatus'] == 3 && $rows['requestorId'] == $_SESSION['id']) { ?>
                             <div class="d-flex justify-content-center my-1"><button type="button" class="btn btn-success " id="completeRequestButton" data-ajax-data="<?php echo $_GET['requestid']?>">Complete Request</button></div>
                         <?php } ?>
+                        <?php if (!empty($rows['trackingLink']) ) { ?>
+                            <div id="netframe" class="row d-flex justify-content-center" style="margin-top: 20px;margin-bottom: 20px">
+                                <iframe height="400px" width="80%" class="netframe" src="<?php echo $rows['trackingLink']; ?>"  id="main_frame"></iframe>
+                            </div>
+                            <?php } ?>
                     </div>
                 </div>
             </div>

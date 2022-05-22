@@ -3,8 +3,9 @@
     if( !isset($_SESSION['id']) )
         header('Location: login.php');
     include("connection.php");
-    $myrequest = $_GET['myrequest']??null;
-    $query = $myrequest ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : "select * from food where donorId!=".$_SESSION['id']." ORDER BY foodId DESC"; 
+    $myRequestGet = $_GET['myrequest']??null;
+    $appliedRequestFromGet = $_GET['appliedrequest']??null;
+    $query = $myRequestGet ? "select * from food where donorId=".$_SESSION['id']." ORDER BY foodId DESC" : ($appliedRequestFromGet ? "SELECT f.* FROM food f JOIN requests r ON r.foodId = f.foodId AND r.requestorId = ".$_SESSION['id'].";" : "select * from food where donorId!=".$_SESSION['id']." ORDER BY foodId DESC") ; 
     $id=$_SESSION['id'];
     $result = mysqli_query($con,$query); 
     $select = mysqli_query($con, "SELECT * FROM `users` WHERE id = '$id'") or die('query failed');
@@ -101,9 +102,10 @@
             <a href="dashboard.php"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
-            <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
+            
+            <a href="dashboard.php?appliedrequest=true"><i class="fas fa-table"></i><span>Applied Request</span></a>
             <!-- <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
-
+            
         </div>
         <!--sidebar end-->
         <div id="box" class="container-1">
@@ -111,13 +113,13 @@
             <div class="courses-container">
                 <div class="course">
                     <div class="course-preview" data="<?php echo $rows['location']; ?>">
-                        <img src="img/map.jpg" height="200" width="200">
+                        <img src="img/map.jpg" height="100%" width="200">
                     </div>
                     <div class="course-info">
                         <!-- <div class="progress-container">
                             <div class="progress"></div>
                         </div> -->
-                        <h6><?php echo $rows['location']; ?></h6>
+                        <h6>Expiry : <?php echo $rows['expiry']; ?></h6>
                         <h2><?php echo $rows['foodDetails']; ?></h2>
                         <p class="mobile-1">
                             <?php if($rows['donorId']==$_SESSION['id']) { ?>
@@ -268,8 +270,6 @@
             <!-- <a href="#"><i class="fas fa-info-circle" id="bloc-icon"></i></a> -->
             <a href="profile.php"><i class="fas fa-sliders-h" id="bloc-icon"></i></a>
         </nav>
-
-        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
