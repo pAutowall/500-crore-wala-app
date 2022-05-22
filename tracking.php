@@ -51,7 +51,6 @@
         </div>
     </header>
     <!--header area end-->
-
     <div class="wrapper">
         <!--sidebar start-->
         <div class="sidebar" id="sidebar">
@@ -67,7 +66,7 @@
          ?>
                 <h4>
                     <?php 
-				  echo "Welcome, ". $_SESSION['name']."!";
+				  echo  $_SESSION['name'];
                   ?>
                 </h4>
 
@@ -77,7 +76,7 @@
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
-            <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
+            <!-- <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
 
         </div>
         <!--sidebar end-->
@@ -162,14 +161,14 @@
             </div>
         <?php } ?>
         
-    </div>
-
+    
+                        </div>
         
         <nav class="mobile-nav">
             <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table" id="bloc-icon"></i></a>
             <a href="request.php"><i class="fas fa-cogs" id="bloc-icon"></i></a>
-            <a href="#"><i class="fas fa-info-circle" id="bloc-icon"></i></a>
+            <!-- <a href="#"><i class="fas fa-info-circle" id="bloc-icon"></i></a> -->
             <a href="profile.php"><i class="fas fa-sliders-h" id="bloc-icon"></i></a>
         </nav>
         

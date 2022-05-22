@@ -107,7 +107,7 @@ body {
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-    background: #651FFF;
+    background: #19b3d3;
 }
 
 #progressbar li.active:before {

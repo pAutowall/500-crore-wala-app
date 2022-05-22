@@ -115,7 +115,7 @@ if(isset($_POST['update_profile'])){
                 <!-- <img src="img/FPvkGPgXsAogrsG.jpg" class="profile_image" alt=""> -->
                 <h4>
                     <?php 
-				  echo "Welcome, ". $_SESSION['name']."!";
+				  echo  $_SESSION['name'];
                   ?>
                 </h4>
 
@@ -125,7 +125,7 @@ if(isset($_POST['update_profile'])){
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
-            <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
+            <!-- <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
 
         </div>
         <!--sidebar end-->
@@ -192,7 +192,7 @@ if(isset($_POST['update_profile'])){
          <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
          <a href="dashboard.php?myrequest=true"><i class="fas fa-table"  id="bloc-icon"></i></a>
          <a href="request.php"><i class="fas fa-cogs"  id="bloc-icon"></i></a>
-         <a href="#"><i class="fas fa-info-circle"  id="bloc-icon"></i></a>
+         <!-- <a href="#"><i class="fas fa-info-circle"  id="bloc-icon"></i></a> -->
          <a href="profile.php"><i class="fas fa-sliders-h"  id="bloc-icon"></i></a>
     </nav>
 

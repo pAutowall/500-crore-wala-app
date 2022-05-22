@@ -46,6 +46,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard2.css">
     <link rel="stylesheet" href="css/my-login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -86,7 +87,7 @@
          ?>
                 <h4>
                     <?php 
-				  echo "Welcome, ". $_SESSION['name']."!";
+				  echo  $_SESSION['name'];
                   ?>
                 </h4>
 
@@ -96,7 +97,7 @@
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
-            <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
+            <!-- <a href="tracking.php"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
 
         </div>
         <!--sidebar end-->
@@ -120,30 +121,38 @@
                                 data-target="#editModal"
                                 data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Edit</button>
                             <?php } else { ?>
-                                
+
+
+                            <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButton" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
+                            <?php if(in_array($rows['foodId'],$isRequestApproved)) { echo '<button class="btn btn-view-edit btn-success" id="trackingButton" data-toggle="modal" data-ajax-data="'.$requestIdFoodIdMap[$rows['foodId']].'">Tracking</button>'; } else { echo ''; } ?>
                             <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
                             <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
                                 data-target="#applyModal"
                                 data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>"
-                                <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?> >Apply</button>
+                                <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?>>Apply</button>
                             <?php } ?>
-                            <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButton" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
-                            <?php if(in_array($rows['foodId'],$isRequestApproved)) { echo '<button class="btn btn-view-edit btn-success" id="trackingButton" data-toggle="modal" data-ajax-data="'.$requestIdFoodIdMap[$rows['foodId']].'">Tracking</button>'; } else { echo ''; } ?>
                         </p>
                         <div>
                             <div class="modal-footer" id="mobile-2">
-                            
-                                <?php if($rows['donorId']==$_SESSION['id']) { ?>
-                                <?php $ajaxData = $rows?>
-                                <button class="btn btn-apply-edit" id="editButton" data-toggle="modal"
-                                    data-target="#editModal"
-                                    data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Edit</button>
-                                <?php } else { ?>
-                                    <button type="button" class="btn btn-apply-edit" id="locationButton" data="<?php echo $rows['location']; ?>">Location</button>
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <?php if($rows['donorId']==$_SESSION['id']) { ?>
+                                    <?php $ajaxData = $rows?>
+                                    <button class="btn btn-apply-edit" id="editButton" data-toggle="modal"
+                                        data-target="#editModal"
+                                        data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Edit</button>
+                                    <?php } else { ?>
+                                    <button type="button" class="btn btn-apply-edit" id="locationButton"
+                                        data="<?php echo $rows['location']; ?>">Location</button>
+                                    <?php if(in_array($rows['foodId'],$isRequestApproved)) { echo '<button class="btn btn-view-edit btn-success" id="trackingButtonM" data-toggle="modal" data-ajax-data="'.$requestIdFoodIdMap[$rows['foodId']].'">Tracking</button>'; } else { echo ''; } ?>
                                     <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
-                                    <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal" data-target="#applyModal" data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>" 
-                                    <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?> >Apply</button>
-                                <?php } ?>
+                                    <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
+                                        data-target="#applyModal"
+                                        data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>"
+                                        <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?>>Apply</button>
+                                    <?php } ?>
+                                    <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButtonM" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -156,81 +165,83 @@
             <?php } ?>
 
 
-        </div>
 
 
 
-        <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="applyModalLabel">New message</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Request ID:</label>
-                                <input type="text" class="form-control" id="recipient-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text" required></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="applyModalSubmit" type="button" class="btn btn-primary">Send message</button>
+
+            <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="applyModalLabel">New message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Request ID:</label>
+                                    <input type="text" class="form-control" id="recipient-name" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Message:</label>
+                                    <textarea class="form-control" id="message-text" required></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="applyModalSubmit" type="button" class="btn btn-primary">Send message</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Request</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group" id="editRequestModal">
-                                <label for="requestType">Request Type</label>
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group" id="editRequestModal">
+                                    <label for="requestType">Request Type</label>
 
-                                <select name="request" id="requestType" disabled>
-                                    <option value="donor">Donor</option>
-                                    <option value="reciever">Reciever</option>
-                                </select>
+                                    <select name="request" id="requestType" disabled>
+                                        <option value="donor">Donor</option>
+                                        <option value="reciever">Reciever</option>
+                                    </select>
 
-                                <div class="form-group editrequestmodal">
-                                    <label for="location">Location</label>
-                                    <input id="location" type="text" name="location">
+                                    <div class="form-group editrequestmodal">
+                                        <label for="location">Location</label>
+                                        <input id="location" type="text" name="location">
+                                    </div>
+                                    <div class="form-group editrequestmodal">
+                                        <label for="expiry">Expires After</label>
+                                        <input id="expiry" type="text" name="expiry">
+                                    </div>
+                                    <div class="form-group editrequestmodal">
+                                        <label for="foodDescription">Food Description/ Requirement</label>
+                                        <textarea id="foodDescription" name="foodDescription" rows="4"
+                                            cols="50"></textarea>
+                                    </div>
                                 </div>
-                                <div class="form-group editrequestmodal">
-                                    <label for="expiry">Expires After</label>
-                                    <input id="expiry" type="text" name="expiry">
-                                </div>
-                                <div class="form-group editrequestmodal">
-                                    <label for="foodDescription">Food Description/ Requirement</label>
-                                    <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary editrequestmodal" id="editModalSubmit" type="button"
-                            class="btn btn-primary">Save Data</button>
-                    </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="divClose btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary editrequestmodal" id="editModalSubmit" type="button"
+                                class="btn btn-primary">Save Data</button>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,10 +249,10 @@
             <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table" id="bloc-icon"></i></a>
             <a href="request.php"><i class="fas fa-cogs" id="bloc-icon"></i></a>
-            <a href="#"><i class="fas fa-info-circle" id="bloc-icon"></i></a>
+            <!-- <a href="#"><i class="fas fa-info-circle" id="bloc-icon"></i></a> -->
             <a href="profile.php"><i class="fas fa-sliders-h" id="bloc-icon"></i></a>
         </nav>
-        
+
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script

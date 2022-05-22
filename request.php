@@ -1,5 +1,7 @@
 <?php
     session_start();
+    if( !isset($_SESSION['id']) )
+        header('Location: login.php');
     include("connection.php");
     include("utils.php");
     $id=$_SESSION['id'];
@@ -15,7 +17,7 @@
         $randomSeed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $foodDisplayId = generate_string($randomSeed,3).'-'.generate_string($randomSeed,3).'-'.generate_string($randomSeed,3);
         $result = $con->query("INSERT INTO food VALUES (NULL,".$_SESSION['id'].",'".$foodDescription."','".$location."',".$expiry.",'".$requestType."','".$foodDisplayId."');");
-
+        header('Location: dashboard.php?myrequest=true');
     }
 ?>
 <!DOCTYPE html>
@@ -60,7 +62,7 @@
          ?>
                 <h4>
                 <?php 
-				  echo "Welcome, ". $_SESSION['name']."!";
+				  echo  $_SESSION['name'];
                   ?>
 				</h4>
                 
@@ -70,7 +72,7 @@
             <a href="request.php"><i class="fas fa-cogs"></i><span>Create Request</span></a>
             <a href="dashboard.php?myrequest=true"><i class="fas fa-table"></i><span>My Requests</span></a>
             <!-- <a href="#"><i class="fas fa-th"></i><span>ABC</span></a> -->
-            <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a>
+            <!-- <a href="#"><i class="fas fa-info-circle"></i><span>Tracking</span></a> -->
             
         </div>
         <!--sidebar end-->
@@ -82,14 +84,14 @@
 
     <div class="container-1">
     
-    <h2>Donation Form</h2>
+    <h2 class="donationh2">Donation Form</h2>
                     <!-- <a class="close" href="#">&times;</a> -->
                     <div class="content">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <div class="form-group">
                                 <label for="requestType">Request Type</label>
 
-                                <select name="request" id="requestType">
+                                <select name="request" id="requestType" style="width:100%!important">
                                     <option value="donor">Donor</option>
                                     <option value="reciever">Reciever</option>
                                 </select>
@@ -97,15 +99,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <input id="location" type="text" name="location">
+                                <input id="location" type="text" name="location" style="width:100%!important">
                             </div>
                             <div class="form-group">
                                 <label for="expiry">Expires After</label>
-                                <input id="expiry" type="text" name="expiry">
+                                <input id="expiry" type="text" name="expiry" style="width:100%!important">
                             </div>
                             <div class="form-group">
                                 <label for="foodDescription">Food Description/ Requirement</label>
-                                <textarea id="foodDescription" name="foodDescription" rows="4" cols="50"></textarea>
+                                <textarea id="foodDescription" name="foodDescription" rows="4" cols="50" style="width:100%!important"></textarea>
                             </div>
                             <div class="form-group m-0">
                                 <button type="submit" class="btn btn-primary btn-block">
@@ -121,7 +123,7 @@
          <a href="dashboard.php"><i class="fas fa-desktop" id="bloc-icon"></i></a>
          <a href="dashboard.php?myrequest=true"><i class="fas fa-table"  id="bloc-icon"></i></a>
          <a href="request.php"><i class="fas fa-cogs"  id="bloc-icon"></i></a>
-         <a href="#"><i class="fas fa-info-circle"  id="bloc-icon"></i></a>
+         <!-- <a href="#"><i class="fas fa-info-circle"  id="bloc-icon"></i></a> -->
          <a href="profile.php"><i class="fas fa-sliders-h"  id="bloc-icon"></i></a>
     </nav>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

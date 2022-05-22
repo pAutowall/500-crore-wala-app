@@ -1,0 +1,16 @@
+@media screen and (max-width: 830px) {
+    header {
+        height: 30px;
+    }
+    *,
+     ::after,
+     ::before {
+        box-sizing: unset!important;
+    }
+    .course {
+        margin: 10px;
+    }
+    .logout_btn {
+        margin-right: 40px!important;
+    }
+}

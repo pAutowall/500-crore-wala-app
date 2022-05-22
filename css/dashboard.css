@@ -2,12 +2,15 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Roboto", sans-serif;
+    height: 100%;
 }
 
 header {
     position: fixed;
     background: #22242a;
     padding: 20px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 70px;
     z-index: 2;
@@ -44,20 +47,22 @@ header {
     background: #0b87a6;
 }
 
-.wrapper {
+
+/* .wrapper {
     display: flex;
     width: 100%;
     align-items: stretch;
-}
+} */
 
 .sidebar {
+    position: fixed;
     background: #2f323a;
-    margin-top: 70px;
-    padding-top: 30px;
-    min-width: 250px;
-    max-width: 250px;
+    margin-top: 45px;
+    padding-top: 50px;
     color: #fff;
     transition: all 0.3s;
+    height: 100vh;
+    width: 250px;
 }
 
 #sidebar.active {
@@ -110,12 +115,11 @@ header {
 } */
 
 .container-1 {
-    margin-top: 100px;
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    overflow: auto;
+    position: relative;
+    top: 70px;
+    padding: 30px;
+    left: 250px;
+    width: calc(100% - 250px);
 }
 
 .container-1 .containerlevel2 {
@@ -336,13 +340,20 @@ header {
         letter-spacing: 1px;
     }
     #box {
-        margin-top: 80px;
-        padding: 0px;
-        padding-bottom: 50px;
+        left: 0px;
+        margin-top: 0px;
+        padding: 10px;
+        padding-bottom: 60px;
+        background: #22242a;
+        width: auto;
     }
     .container-1 {
-        margin-top: 80px;
-        padding-bottom: 70px;
+        left: 0px;
+        margin-top: 0px;
+        padding: 20px;
+        padding-bottom: 60px;
+        background: #22242a;
+        width: auto;
     }
     #mobile-2 {
         padding: 10px;
@@ -355,5 +366,14 @@ header {
     }
     #locationButton {
         width: 100%;
+    }
+    .modal-body.viewrequest {
+        overflow: scroll;
+    }
+    .container-1 .update-profile {
+        padding: 5px!important;
+    }
+    .logout_btn {
+        margin-right: 0px;
     }
 }
