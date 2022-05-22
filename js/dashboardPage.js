@@ -1,4 +1,4 @@
-$(".course-preview,#locationButton").on("click", function() {
+$(".course-preview,#locationButton").on("click", function () {
     window.open(`https://maps.google.com/?q=${$(this).attr("data")}`, "_blank").focus();
 });
 // $(".fra").on("click", function() {
@@ -7,7 +7,7 @@ $(".course-preview,#locationButton").on("click", function() {
 
 // });
 
-$("#load").click(function() {
+$("#load").click(function () {
     var new_url = $("#url").val();
     $("#main_frame").attr("src", new_url);
 });
@@ -15,10 +15,10 @@ $("#load").click(function() {
 
 //     window.open(`https://maps.google.com/?q=${$(this).attr("data")}`, "_blank").focus();
 // });
-$(document).ready(async function() {
+$(document).ready(async function () {
     $("#expiry").datetimepicker();
 });
-$("#applyModal").on("show.bs.modal", function(event) {
+$("#applyModal").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var ajaxData = button.data("ajax-data");
     var modal = $(this);
@@ -29,7 +29,7 @@ $("#applyModal").on("show.bs.modal", function(event) {
     modal.find("#applyModalSubmit").data(ajaxData);
 });
 
-$("#editModal").on("show.bs.modal", function(event) {
+$("#editModal").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var ajaxData = button.data("ajax-data");
     var modal = $(this);
@@ -55,21 +55,28 @@ $("#editModal").on("show.bs.modal", function(event) {
 //     $("#expiry").datetimepicker("destroy");
 // });
 
-$("#applyModal #applyModalSubmit").click(function() {
+$("#applyModal #applyModalSubmit").click(function () {
     var modal = $("#applyModal");
     var self = $(this);
 
     var foodId = $(this).data().foodId;
     var message = modal.find("textarea").val().replace(/\n/g, "<br>");
 
-    $.post("api.php", { foodId: foodId, message: message, actionType: "apply" }, function(result) {
+    if (!message) {
+        return $.toast("warning", "Message field cannot be empty.");
+    }
+
+    $.post("api.php", { foodId: foodId, message: message, actionType: "apply" }, function (result) {
         console.log(result);
         self.parent().find(".divClose").click();
         $.toast("success", JSON.parse(result).message);
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     });
 });
 
-$("#editModal #editModalSubmit").click(function() {
+$("#editModal #editModalSubmit").click(function () {
     var modal = $("#editModal");
     var self = $(this);
 
@@ -87,43 +94,43 @@ $("#editModal #editModalSubmit").click(function() {
         actionType: "edit",
     };
 
-    $.post("api.php", postData, function(result) {
+    $.post("api.php", postData, function (result) {
         self.parent().find(".divClose").click();
         $.toast("success", JSON.parse(result).message);
     });
 });
 
-$("#viewButton").click(function() {
+$("#viewButton").click(function () {
     var foodId = $(this).parent().find("#editButton").data("ajax-data").foodId;
     request = $.ajax({
         type: "POST",
         url: "api.php",
         data: { foodId: foodId, actionType: "view" },
-        success: function(result) {
+        success: function (result) {
             console.log(result);
             $("#viewModal").remove();
             generate_view_modal_html(JSON.parse(result).data);
             $("body").find("#viewModal").modal();
         },
-        error: function(jqXHR, exception) {
+        error: function (jqXHR, exception) {
             console.log(exception);
         },
     });
 });
 
-$("#viewButtonM").click(function() {
+$("#viewButtonM").click(function () {
     var foodId = $(this).parent().find("#editButton").data("ajax-data").foodId;
     request = $.ajax({
         type: "POST",
         url: "api.php",
         data: { foodId: foodId, actionType: "view" },
-        success: function(result) {
+        success: function (result) {
             console.log(result);
             $("#viewModal").remove();
             generate_view_modal_html(JSON.parse(result).data);
             $("body").find("#viewModal").modal();
         },
-        error: function(jqXHR, exception) {
+        error: function (jqXHR, exception) {
             console.log(exception);
         },
     });
@@ -137,7 +144,7 @@ function generate_view_modal_html(data) {
         2: "Rejected",
     };
     data.forEach((request, ind) => {
-                trHtml += `
+        trHtml += `
             <tr data-ajax-data="${request.requestId}">
                 <th scope="row">${ind + 1}</th>
                 <td>${request.requestorName}</td>
