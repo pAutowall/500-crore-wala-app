@@ -121,16 +121,16 @@
                                 data-target="#editModal"
                                 data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>">Edit</button>
                             <?php } else { ?>
-
-
-                            <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButton" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
-                            <?php if(in_array($rows['foodId'],$isRequestApproved)) { echo '<button class="btn btn-view-edit btn-success" id="trackingButton" data-toggle="modal" data-ajax-data="'.$requestIdFoodIdMap[$rows['foodId']].'">Tracking</button>'; } else { echo ''; } ?>
-                            <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
-                            <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
+                                <button class="btn btn-apply-edit" id="applyButton" data-toggle="modal"
                                 data-target="#applyModal"
                                 data-ajax-data="<?php echo htmlentities(json_encode($ajaxData)) ?>"
                                 <?php if(in_array($rows['foodId'],$alreadyApplied)) { echo 'disabled'; } else { echo ''; } ?>>Apply</button>
                             <?php } ?>
+
+                            <?php if(in_array($rows['foodId'],$hasRecievedRequestForDonation)) { echo '<button class="btn btn-view-edit btn-warning" id="viewButton" data-toggle="modal">View Requests</button>'; } else { echo ''; } ?>
+                            <?php if(in_array($rows['foodId'],$isRequestApproved)) { echo '<button class="btn btn-view-edit btn-success" id="trackingButton" data-toggle="modal" data-ajax-data="'.$requestIdFoodIdMap[$rows['foodId']].'">Tracking</button>'; } else { echo ''; } ?>
+                            <?php $ajaxData = ['foodDisplayId' => $rows['foodDisplayId'], 'foodId' => $rows['foodId']]?>
+                            
                         </p>
                         <div>
                             <div class="modal-footer" id="mobile-2">
